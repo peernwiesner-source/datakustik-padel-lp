@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.~lock.*
+
+# Backup-Ordner aus dem Master-Workflow
+_backup_pre_*
+_backup_post_*
+backup/
+
+# Lokale Editor-Konfiguration
+.vscode/
+.idea/
+
+# FTP-/Sync-Credentials
+.env
+.env.*
+*.netrc
+ftp-credentials.txt
+
+# Build-Artefakte (falls später ein Build-Step dazukommt)
+dist-old/
+node_modules/
+
+# Logs
+*.log
+sync-*.log

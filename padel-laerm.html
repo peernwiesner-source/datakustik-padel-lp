@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel & Lärm – DataKustik</title>
+<!-- Usercentrics DSGVO/GDPR Consent Management -->
+<script id="usercentrics-cmp" src="https://app.usercentrics.eu/browser-ui/latest/loader.js" data-settings-id="i3ClFb9nI" async></script>
+<!-- Google Analytics 4 – Advanced Consent Mode v2 (cookieless pings + modeling) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5GTQNCL71"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  // Default: alle Consent-Signale denied bis Usercentrics ein Update sendet.
+  // ad_user_data + ad_personalization sind seit Consent Mode v2 (März 2024) Pflicht.
+  gtag('consent', 'default', {
+    analytics_storage:   'denied',
+    ad_storage:          'denied',
+    ad_user_data:        'denied',
+    ad_personalization:  'denied',
+    wait_for_update:     2000
+  });
+  // Advanced Mode Flags: cookieless pings dürfen senden, IPs/IDs werden maskiert.
+  gtag('set', 'url_passthrough', true);
+  gtag('set', 'ads_data_redaction', true);
+  gtag('js', new Date());
+  gtag('config', 'G-Y5GTQNCL71', { send_page_view: true });
+</script>
+<style>
+  :root {
+    --teal:      #009898;
+    --teal-dark: #007575;
+    --teal-light:#e6f5f5;
+    --dark:      #20201e;
+    --mid:       #4a4a48;
+    --light:     #f5f5f3;
+    --white:     #ffffff;
+    --border:    #d8d8d4;
+    --font: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    color: var(--dark);
+    background: var(--white);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: #00b5b5; transform: translateY(-1px); }
+
+  /* ── LANG SWITCHER ─────────────────────────────────── */
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-right: 12px;
+  }
+  .lang-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    padding: 4px 7px;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    color: rgba(255,255,255,0.5);
+  }
+  .lang-btn:hover { border-color: rgba(255,255,255,0.5); color: white; }
+  .lang-btn.active { border-color: var(--teal); background: rgba(0,152,152,0.2); }
+  @media (max-width: 600px) { .lang-switcher { margin-right: 6px; } .lang-btn { padding: 3px 5px; font-size: 13px; } }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    background: var(--dark);
+    color: var(--white);
+    padding: 80px 48px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .hero-text { padding-bottom: 80px; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: var(--teal); }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    padding: 13px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--teal-dark); }
+  .btn-ghost {
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3px;
+    transition: border-color 0.2s, color 0.2s;
+    margin-left: 12px;
+  }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* Hero illustration */
+  .hero-visual { display: flex; align-items: flex-end; justify-content: center; }
+
+  /* ── STATS BAR ──────────────────────────────────────── */
+  .stats-bar {
+    background: var(--teal);
+    color: var(--white);
+  }
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+  }
+  .stat {
+    padding: 28px 40px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number { font-size: 32px; font-weight: 700; line-height: 1; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+
+  /* ── INTRO SECTION ──────────────────────────────────── */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 48px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: var(--mid);
+    max-width: 680px;
+    margin-bottom: 48px;
+  }
+
+  /* cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px 28px;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); border-color: var(--teal); }
+  .card-icon { margin-bottom: 20px; }
+  .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .card p { font-size: 14px; color: var(--mid); line-height: 1.6; }
+
+  /* ── DIVIDER ──────────────────────────────────────── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── LEVEL TABS ───────────────────────────────────── */
+  .level-section { background: var(--light); }
+  .level-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 48px;
+  }
+  .tab-header {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 16px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mid);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    font-family: var(--font);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab-btn:hover { color: var(--teal); }
+  .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .tab-badge {
+    font-size: 10px;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .panel-text h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .panel-text p {
+    font-size: 15px;
+    color: var(--mid);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  .panel-text p strong { color: var(--dark); }
+  .highlight-box {
+    background: var(--white);
+    border-left: 3px solid var(--teal);
+    padding: 20px 24px;
+    margin: 24px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .highlight-box p { margin: 0; font-size: 14px; color: var(--mid); font-style: italic; }
+
+  .panel-visual {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+  }
+  .panel-visual h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+
+  /* Norm badges */
+  .norm-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .norm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--teal-light);
+    border: 1px solid rgba(0,152,152,0.2);
+    color: var(--teal-dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 3px;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 16px 0; }
+  .checklist li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--mid);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '✓';
+    color: var(--teal);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Emissions table */
+  .emi-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  .emi-table th {
+    background: var(--dark);
+    color: var(--white);
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+  .emi-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--mid);
+  }
+  .emi-table tr:nth-child(even) td { background: var(--teal-light); }
+  .emi-table td:first-child { font-weight: 600; color: var(--dark); }
+
+  /* Formulas */
+  .formula-block {
+    background: var(--dark);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin: 16px 0;
+  }
+  .formula-block .formula-line {
+    display: block;
+    color: #e6f5f5;
+    font-family: 'Cambria Math', 'Latin Modern Math', 'Georgia', serif;
+    font-size: 17px;
+    line-height: 2.4;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+  .formula-block .formula-line sub {
+    font-style: normal;
+    font-size: 0.72em;
+    vertical-align: baseline;
+    position: relative;
+    bottom: -0.35em;
+  }
+  .formula-block .formula-var {
+    color: #5be0e0;
+    font-weight: 500;
+  }
+  .formula-block .formula-eq {
+    color: #ffffff;
+    font-style: normal;
+    margin: 0 4px;
+  }
+  .formula-block .formula-note {
+    color: rgba(230,245,245,0.55);
+    font-style: normal;
+    font-size: 0.8em;
+  }
+
+  /* ── HOW IT WORKS ─────────────────────────────────── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .step {
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--teal);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 13px; color: var(--mid); }
+
+  /* ── QUOTE ──────────────────────────────────────────── */
+  .quote-band { background: var(--dark); color: var(--white); padding: 64px 48px; }
+  .quote-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+  .quote-inner blockquote {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.9);
+    margin: 12px 36px;      /* horizontaler Innenabstand für die Quotes */
+    padding: 0;
+    position: relative;
+  }
+  /* Beide Quotes als spiegelbildlich gesetzte Dekor-Elemente — visuell gleicher Abstand zum Text.
+     Hinweis: das öffnende und schließende Quote-Glyph sitzen typografisch beide im oberen Drittel
+     ihres Em-Box-Bereichs. Damit der visuelle Abstand symmetrisch wirkt, braucht das schließende
+     Quote einen größeren Bottom-Offset als das öffnende einen Top-Offset. */
+  .quote-inner blockquote::before,
+  .quote-inner blockquote::after {
+    font-size: 50px;
+    color: var(--teal);
+    opacity: 0.5;
+    line-height: 1;
+    font-family: Georgia, serif;
+    position: absolute;
+    font-weight: 400;
+  }
+  .quote-inner blockquote::before {
+    content: '\201C';
+    top: -6px;
+    left: -32px;
+  }
+  .quote-inner blockquote::after {
+    content: '\201D';
+    bottom: -28px;
+    right: -32px;
+  }
+  .quote-source { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; }
+
+  /* ── CTA BAND ────────────────────────────────────────── */
+  .cta-band {
+    background: var(--teal);
+    color: var(--white);
+    padding: 64px 48px;
+    text-align: center;
+  }
+  .cta-band h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+  .cta-band p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
+  .btn-white {
+    display: inline-block;
+    background: var(--white);
+    color: var(--teal);
+    text-decoration: none;
+    padding: 13px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 3px;
+    transition: opacity 0.2s;
+    margin: 0 8px;
+  }
+  .btn-white:hover { opacity: 0.9; }
+  .btn-white-ghost {
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.6);
+    color: var(--white);
+    text-decoration: none;
+    padding: 11px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: border-color 0.2s;
+    margin: 0 8px;
+  }
+  .btn-white-ghost:hover { border-color: var(--white); }
+
+  /* ── NEWSLETTER BAND (Soft-Conversion) ───────────────── */
+  .newsletter-band {
+    background: var(--light);
+    color: var(--dark);
+    padding: 40px 48px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .newsletter-band h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .newsletter-band p {
+    font-size: 15px;
+    color: var(--mid);
+    margin-bottom: 20px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-teal-ghost {
+    display: inline-block;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    background: transparent;
+    text-decoration: none;
+    padding: 10px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-teal-ghost:hover {
+    background: var(--teal);
+    color: var(--white);
+  }
+  @media (max-width: 600px) {
+    .newsletter-band { padding: 32px 20px; }
+    .newsletter-band h3 { font-size: 18px; }
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  footer {
+    background: #161614;
+    color: rgba(255,255,255,0.5);
+    padding: 48px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; }
+  footer a:hover { color: var(--teal); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-copy { font-size: 12px; }
+
+  /* ── LEAD FORM ──────────────────────────────────────── */
+  .lead-form-band {
+    background: var(--teal-light);
+    padding: 80px 48px;
+  }
+  .lead-form-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .lead-form-intro .tag {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .lead-form-intro h2 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--dark);
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .lead-form-intro p {
+    font-size: 15px;
+    color: var(--mid);
+    margin-bottom: 22px;
+  }
+  .lead-form-intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px 0;
+  }
+  .lead-form-intro li {
+    font-size: 14px;
+    color: var(--mid);
+    padding: 6px 0 6px 22px;
+    position: relative;
+  }
+  .lead-form-intro li::before {
+    content: "→";
+    color: var(--teal);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+  }
+  .lead-form {
+    background: var(--white);
+    padding: 36px;
+    border-radius: 6px;
+    box-shadow: 0 4px 24px rgba(32, 32, 30, 0.08);
+  }
+  .lead-form .row { margin-bottom: 16px; }
+  .lead-form .row.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lead-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .lead-form label .req { color: var(--teal); }
+  .lead-form input,
+  .lead-form select,
+  .lead-form textarea {
+    width: 100%;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--dark);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+  }
+  .lead-form input:focus,
+  .lead-form select:focus,
+  .lead-form textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+  }
+  .lead-form textarea { resize: vertical; min-height: 90px; }
+
+  /* ── WEBINAR CARD ─────────────────────────────────────── */
+  .webinar-card {
+    background: var(--dark);
+    border-radius: 5px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .webinar-card:hover { border-color: var(--teal); }
+  .webinar-card.selected { border-color: var(--teal); background: #1a2e2e; }
+  .webinar-check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .webinar-card.selected .webinar-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .webinar-check svg { display: none; }
+  .webinar-card.selected .webinar-check svg { display: block; }
+  .webinar-info { flex: 1; }
+  .webinar-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 5px;
+  }
+  .webinar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .webinar-times {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .webinar-time-slot {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.07);
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .webinar-time-slot strong { color: rgba(255,255,255,0.9); }
+  .lead-form .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+  .lead-form .consent input { width: auto; margin-top: 3px; }
+  .lead-form .consent a { color: var(--teal); text-decoration: none; }
+  .lead-form .consent a:hover { text-decoration: underline; }
+  .lead-form button {
+    width: 100%;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    padding: 14px 24px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lead-form button:hover:not(:disabled) { background: var(--teal-dark); }
+  .lead-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .lead-form .note {
+    font-size: 11px;
+    color: var(--mid);
+    text-align: center;
+    margin-top: 12px;
+  }
+  .lead-form .status-msg {
+    padding: 14px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .lead-form .status-msg.show { display: block; }
+  .lead-form .status-msg.success {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    border: 1px solid var(--teal);
+  }
+  .lead-form .status-msg.error {
+    background: #fdecea;
+    color: #b5301b;
+    border: 1px solid #b5301b;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  /* ── 2-COL GRID (Anwendungsfelder) ──────────────────── */
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 900px) {
+    /* Nav */
+    nav { padding: 0 20px; }
+    .nav-cta { padding: 8px 14px; font-size: 12px; }
+
+    /* Hero */
+    .hero { grid-template-columns: 1fr; padding: 40px 20px 0; gap: 24px; }
+    .hero-visual { display: none; }
+    .hero h1 { font-size: 28px; }
+    .hero-sub { font-size: 15px; }
+    .hero-text { padding-bottom: 48px; }
+
+    /* Stats */
+    .stats-inner { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 20px 24px; }
+    .stat-number { font-size: 26px; }
+
+    /* Sections */
+    .section, .level-inner { padding: 40px 20px; }
+
+    /* Cards */
+    .cards { grid-template-columns: 1fr; }
+
+    /* Anwendungsfelder 2-col */
+    .two-col-grid { grid-template-columns: 1fr; }
+
+    /* Tabs */
+    .tab-header { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 2px; }
+    .tab-btn { padding: 12px 14px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+    .tab-badge { display: none; }
+    .panel-grid { grid-template-columns: 1fr; gap: 24px; }
+    .emi-table { font-size: 12px; }
+    .emi-table th, .emi-table td { padding: 7px 8px; }
+    .formula-block { padding: 16px 18px; overflow-x: auto; }
+
+    /* Steps */
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+
+    /* Quote */
+    .quote-band { padding: 48px 20px; }
+    .quote-inner blockquote { font-size: 18px; padding-left: 16px; }
+
+    /* CTA */
+    .cta-band { padding: 48px 20px; }
+    .cta-band h2 { font-size: 22px; }
+
+    /* Lead form */
+    .lead-form-band { padding: 48px 20px; }
+    .lead-form-inner { grid-template-columns: 1fr; gap: 32px; }
+    .lead-form { padding: 24px 18px; }
+    .lead-form .row.two { grid-template-columns: 1fr; }
+
+    /* Webinar card */
+    .webinar-times { flex-direction: column; gap: 6px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 24px; }
+    .stat-number { font-size: 22px; }
+    .section h2, .level-inner h2 { font-size: 22px; }
+    .btn-primary, .btn-ghost { display: block; text-align: center; margin: 8px 0; }
+    .btn-ghost { margin-left: 0; }
+    .norm-badges { gap: 6px; }
+    .norm-badge { font-size: 11px; padding: 4px 8px; }
+    .webinar-card { padding: 16px; }
+    footer { padding: 32px 20px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     PADEL-BANNER v4 (Doppel-Court mit 4 Spielern)
+     Eingefügt 2026-05-04 — neues Hero-Design
+     Desktop ≥ 769 px: voller 4-Spieler-Banner (1440×175)
+     Mobile  ≤ 768 px: kompakter 2-Spieler-Banner (400×110)
+     ══════════════════════════════════════════════════════════════ */
+  .padel-banner {
+    background: linear-gradient(180deg, #20201e 0%, #1a2828 50%, #20201e 100%);
+    height: 175px;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid rgba(0,152,152,0.15);
+    border-bottom: 1px solid rgba(0,152,152,0.15);
+  }
+  .padel-banner svg { width: 100%; height: 100%; display: block; }
+  .padel-banner svg.svg-mobile { display: none; }
+  .padel-banner svg.svg-desktop { display: block; }
+  .banner-overlay {
+    position: absolute;
+    left: 60px; top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    pointer-events: none;
+    max-width: 200px;
+    line-height: 1.4;
+  }
+  .banner-overlay strong { color: var(--teal); display:block; }
+  .banner-meta {
+    position: absolute;
+    right: 60px; bottom: 14px;
+    color: rgba(255,255,255,0.4);
+    font-size: 10px;
+    letter-spacing: 1px;
+    /* text-transform: uppercase ENTFERNT 2026-05-13: bricht Mixed-Case-Schreibweise von CadnaA / BImSchV */
+  }
+  .banner-meta strong { color: rgba(0,152,152,0.85); }
+  @media (max-width: 1024px) {
+    .padel-banner { height: 145px; }
+    .banner-overlay { left: 32px; font-size: 12px; max-width: 170px; }
+    .banner-meta { right: 32px; font-size: 9px; }
+  }
+  @media (max-width: 768px) {
+    .padel-banner { height: 110px; }
+    .padel-banner svg.svg-desktop { display: none; }
+    .padel-banner svg.svg-mobile { display: block; }
+    .banner-overlay {
+      left: 16px; top: 12px; transform: none;
+      font-size: 10px;
+      letter-spacing: 0.8px;
+      max-width: 140px;
+      line-height: 1.3;
+    }
+    .banner-meta {
+      right: 16px; bottom: 10px;
+      font-size: 8px; letter-spacing: 0.5px;
+    }
+  }
+  @media (max-width: 420px) {
+    .padel-banner { height: 100px; }
+    .banner-meta { display: none; }
+    .banner-overlay { font-size: 9.5px; max-width: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="https://www.datakustik.com/de/">
+    <!-- DataKustik logo – korrekte Version -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="30" aria-label="DataKustik" role="img" style="display:block;vertical-align:middle;" viewBox="-4806 -8545 170 41.321">
+  <defs>
+    <style>
+      .navlogo-i {
+        fill: #009898;
+        fill-rule: evenodd;
+      }
+
+      .navlogo-t {
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <g id="Gruppe_19" data-name="Gruppe 19" transform="translate(-5347 -8695)">
+    <g id="Gruppe_8" data-name="Gruppe 8" transform="translate(541 150)">
+      <path id="Pfad_1" data-name="Pfad 1" class="navlogo-i" d="M.729,0H0V.681H.729a19.98,19.98,0,0,1,0,39.96H0v.681H.729A20.661,20.661,0,0,0,.729,0Z" transform="translate(0)"/>
+      <path id="Pfad_2" data-name="Pfad 2" class="navlogo-i" d="M17.841,24.309A17.241,17.241,0,0,0,.632,7.1H0V8.461H.583a15.848,15.848,0,1,1,0,31.7H0v1.361H.632A17.21,17.21,0,0,0,17.841,24.309Z" transform="translate(0 -3.648)"/>
+      <path id="Pfad_3" data-name="Pfad 3" class="navlogo-i" d="M13.612,28.677A13.122,13.122,0,0,0,.486,15.6H0v2.042H.438a11.035,11.035,0,1,1,0,22.07H0V41.8H.486A13.2,13.2,0,0,0,13.612,28.677Z" transform="translate(0 -8.016)"/>
+      <path id="Pfad_4" data-name="Pfad 4" class="navlogo-i" d="M8.6,33.764A8.288,8.288,0,0,0,.34,25.5H0V41.98H.34A8.216,8.216,0,0,0,8.6,33.764Z" transform="translate(0 -13.104)"/>
+    </g>
+    <g id="Gruppe_3" data-name="Gruppe 3" transform="translate(570.605 157.875)">
+      <path id="Pfad_5" data-name="Pfad 5" class="navlogo-t" d="M66.2,19.7c.632,0,1.264.049,1.945.049,3.889.194,5.736,1.313,7.1,2.528a8.984,8.984,0,0,1,2.333,3.5,11.247,11.247,0,0,1,.632,4.035,12.446,12.446,0,0,1-.292,3.014,9.3,9.3,0,0,1-3.4,5.542c-2.625,1.945-5.688,1.993-8.8,1.993H60.9V19.7ZM65.129,37.2c.681,0,1.458,0,2.188-.049a6.474,6.474,0,0,0,5.445-2.917,7.784,7.784,0,0,0,1.118-4.229A6.919,6.919,0,0,0,71.3,24.27c-1.75-1.361-4.084-1.458-6.222-1.41Z" transform="translate(-60.9 -17.999)"/>
+      <path id="Pfad_6" data-name="Pfad 6" class="navlogo-t" d="M108.857,45.653V43.417a3.3,3.3,0,0,1-.438.681A5.713,5.713,0,0,1,104,45.945c-.632,0-3.354-.1-4.715-2.285A4.376,4.376,0,0,1,98.6,41.23a4.639,4.639,0,0,1,.778-2.528c1.507-2.236,4.667-2.528,7.049-2.528.778,0,1.507.049,2.285.049a8.038,8.038,0,0,0-.243-1.653,3,3,0,0,0-3.111-1.75,8.627,8.627,0,0,0-3.986,1.069,4.492,4.492,0,0,0-.778.583l-.1-3.452A14.016,14.016,0,0,1,105.746,30a9.642,9.642,0,0,1,2.285.243,4.969,4.969,0,0,1,3.938,3.111A11.247,11.247,0,0,1,112.358,37v3.646c0,1.507.049,2.965.1,4.472,0,.194.049.34.049.535Zm-5.1-6.271a2.613,2.613,0,0,0-.826.875,1.83,1.83,0,0,0-.243.972,2.555,2.555,0,0,0,.194.826,2.437,2.437,0,0,0,2.188,1.215,3.582,3.582,0,0,0,2.82-1.458,5.391,5.391,0,0,0,.875-3.111C107.3,38.653,105.114,38.556,103.753,39.382Z" transform="translate(-80.273 -23.291)"/>
+      <path id="Pfad_7" data-name="Pfad 7" class="navlogo-t" d="M136.057,26.127h3.6v2.965h-3.6v6.514c.049.632-.049,2.771,2.333,2.771a5.767,5.767,0,0,0,1.458-.243l.1,3.111a9.529,9.529,0,0,1-2.625.389,5.781,5.781,0,0,1-3.792-1.313c-1.361-1.361-1.313-3.695-1.264-5.445V29.043H129.3V26.078h2.965V23.015l3.84-1.215v4.327Z" transform="translate(-96.049 -19.078)"/>
+      <path id="Pfad_8" data-name="Pfad 8" class="navlogo-t" d="M163.457,45.653V43.417a3.3,3.3,0,0,1-.437.681,5.713,5.713,0,0,1-4.424,1.847c-.632,0-3.354-.1-4.715-2.285a4.376,4.376,0,0,1-.681-2.431,4.639,4.639,0,0,1,.778-2.528c1.507-2.236,4.667-2.528,7.049-2.528.778,0,1.507.049,2.285.049a8.038,8.038,0,0,0-.243-1.653,3,3,0,0,0-3.111-1.75,8.628,8.628,0,0,0-3.986,1.069,4.494,4.494,0,0,0-.778.583l-.1-3.452A14.016,14.016,0,0,1,160.346,30a9.642,9.642,0,0,1,2.285.243,4.969,4.969,0,0,1,3.938,3.111A11.247,11.247,0,0,1,166.958,37v3.646c0,1.507.049,2.965.1,4.472,0,.194.049.34.049.535Zm-5.1-6.271a2.614,2.614,0,0,0-.826.875,1.83,1.83,0,0,0-.243.972,2.556,2.556,0,0,0,.194.826,2.437,2.437,0,0,0,2.188,1.215,3.582,3.582,0,0,0,2.82-1.458,5.391,5.391,0,0,0,.875-3.111C161.9,38.653,159.666,38.556,158.353,39.382Z" transform="translate(-108.33 -23.291)"/>
+      <path id="Pfad_9" data-name="Pfad 9" class="navlogo-t" d="M191.681,28.645l.875-1.118c.486-.535.924-1.069,1.361-1.653l5.25-6.125h5.1l-6.417,7.195-2.09,2.333,8.993,11.132h-5.493l-5.785-7.438c-.438-.535-.826-1.069-1.215-1.6l-.632-.875v9.917H187.5V19.7h4.132v8.945Z" transform="translate(-125.956 -17.999)"/>
+      <path id="Pfad_10" data-name="Pfad 10" class="navlogo-t" d="M226.186,30.7v7.778c.049,1.41-.049,3.257,1.361,4.181a2.728,2.728,0,0,0,1.6.438,3,3,0,0,0,2.674-1.458,7.85,7.85,0,0,0,.778-4.181V30.7h3.938V40.86l.194,5.2h-3.695l-.1-2.382a5.287,5.287,0,0,1-1.41,1.556,6.11,6.11,0,0,1-3.792,1.118,5.037,5.037,0,0,1-4.472-2.139c-1.069-1.6-1.069-3.452-1.069-5.25V30.7Z" transform="translate(-143.787 -23.651)"/>
+      <path id="Pfad_11" data-name="Pfad 11" class="navlogo-t" d="M265.763,33.649a10.649,10.649,0,0,0-3.208-.583,4.427,4.427,0,0,0-1.993.389,1.391,1.391,0,0,0-.826,1.215c0,.681.535.972,1.118,1.215,1.118.486,2.333.681,3.4,1.215a4.225,4.225,0,0,1,2.431,3.986,4.388,4.388,0,0,1-1.556,3.452A6.957,6.957,0,0,1,260.464,46a16.462,16.462,0,0,1-4.57-.681l.194-3.354a9.517,9.517,0,0,0,3.889.972c1.75,0,2.674-.778,2.674-1.653a1.585,1.585,0,0,0-1.069-1.313c-1.07-.486-2.188-.729-3.208-1.215a4.227,4.227,0,0,1-2.674-3.938,4.375,4.375,0,0,1,.583-2.188c.729-1.167,2.431-2.528,5.639-2.528a16.182,16.182,0,0,1,4.035.583Z" transform="translate(-161.002 -23.343)"/>
+      <path id="Pfad_12" data-name="Pfad 12" class="navlogo-t" d="M286.806,26.127h3.6v2.965h-3.6v6.514c.049.632-.049,2.771,2.333,2.771a5.768,5.768,0,0,0,1.458-.243l.1,3.111a9.529,9.529,0,0,1-2.625.389,5.781,5.781,0,0,1-3.792-1.313c-1.361-1.361-1.313-3.695-1.313-5.445V29.043H280V26.078h2.965V23.015l3.84-1.215Z" transform="translate(-173.489 -19.078)"/>
+      <path id="Pfad_13" data-name="Pfad 13" class="navlogo-t" d="M310.286,17.3v3.695H306.3V17.3Zm0,6.514V39.176H306.3V23.814Z" transform="translate(-187.003 -16.765)"/>
+      <path id="Pfad_14" data-name="Pfad 14" class="navlogo-t" d="M324.538,29.471c.486-.632.924-1.264,1.41-1.9l3.452-4.327h4.618l-5.688,6.757,6.417,8.556h-4.91l-3.4-4.667c-.389-.583-.778-1.118-1.118-1.75-.243-.389-.535-.826-.778-1.215v7.632H320.6V16.2h3.938Z" transform="translate(-194.352 -16.2)"/>
+    </g>
+  </g>
+</svg>
+  </a>
+  <div style="display:flex;align-items:center;">
+    <div class="lang-switcher" role="group" aria-label="Sprache / Language">
+      <button class="lang-btn active" data-lang="de" aria-pressed="true" title="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="en" aria-pressed="false" title="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="fr" aria-pressed="false" title="Français">🇫🇷</button>
+      <button class="lang-btn" data-lang="es" aria-pressed="false" title="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="zh" aria-pressed="false" title="中文">🇨🇳</button>
+      <button class="lang-btn" data-lang="it" aria-pressed="false" title="Italiano">🇮🇹</button>
+    </div>
+    <a href="#registrierung" class="nav-cta" data-i18n="nav.cta">Jetzt registrieren</a>
+  </div>
+</nav>
+
+<!-- ==================== PADEL-BANNER v4 ==================== -->
+<div class="padel-banner">
+  <svg class="svg-desktop" viewBox="0 0 1440 175" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e5078" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#103355" stop-opacity="0.95"/>
+      </linearGradient>
+      <linearGradient id="glass-back" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(170,210,220,0.20)"/>
+        <stop offset="100%" stop-color="rgba(170,210,220,0.06)"/>
+      </linearGradient>
+      <linearGradient id="glass-side" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(170,210,220,0.18)"/>
+        <stop offset="100%" stop-color="rgba(170,210,220,0.06)"/>
+      </linearGradient>
+      <pattern id="meshpat" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+        <path d="M0,4 L8,4 M4,0 L4,8" stroke="rgba(180,210,220,0.35)" stroke-width="0.5"/>
+      </pattern>
+      <pattern id="meshfine" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+        <path d="M0,2.5 L5,2.5 M2.5,0 L2.5,5" stroke="rgba(180,210,220,0.5)" stroke-width="0.4"/>
+      </pattern>
+      <radialGradient id="sound" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(0,152,152,0.18)"/>
+        <stop offset="100%" stop-color="rgba(0,152,152,0)"/>
+      </radialGradient>
+
+      <!-- ============================================================
+           PADEL-SCHLÄGER als wiederverwendbares Symbol
+           Griff = Origin (0,0). Schlagblatt extends in -Y (nach oben).
+           Komponenten: Griffende → Grip-Wrap → Hals → Schlagblatt mit
+           perforiertem Inneren und sichtbarem Rahmen.
+      ============================================================ -->
+      <g id="padel-racket">
+        <!-- Griffende (Knauf, dunkelbraun) -->
+        <rect x="-1.3" y="2" width="2.6" height="1.5" fill="rgba(40,30,20,0.95)" rx="0.5"/>
+        <!-- Grip-Wrap (Schwarz mit dezentem Mint) -->
+        <rect x="-1.5" y="-1" width="3" height="3" fill="rgba(20,20,18,0.95)" rx="0.3"/>
+        <line x1="-1.5" y1="0.2" x2="1.5" y2="0.2" stroke="rgba(0,152,152,0.7)" stroke-width="0.4"/>
+        <line x1="-1.5" y1="1.4" x2="1.5" y2="1.4" stroke="rgba(0,152,152,0.7)" stroke-width="0.4"/>
+        <!-- Hals/Schaft (verbindet Griff zum Schlagblatt) -->
+        <path d="M -1.7,-1 L -2.5,-3 L 2.5,-3 L 1.7,-1 Z" fill="rgba(20,20,18,0.95)"/>
+        <!-- Schlagblatt-Außenrahmen (Tropfenform: oben breiter, unten schmaler) -->
+        <path d="M 0,-3
+                 C -5.5,-3 -7,-7.5 -6,-12
+                 C -5,-16 -2,-18 0,-18
+                 C 2,-18 5,-16 6,-12
+                 C 7,-7.5 5.5,-3 0,-3 Z"
+              fill="rgba(35,90,90,0.6)"
+              stroke="rgba(0,180,180,0.95)" stroke-width="0.85"/>
+        <!-- Innere Schlagfläche (heller, mit Frame-Linie) -->
+        <path d="M 0,-4.2
+                 C -4.2,-4.2 -5.5,-7.8 -4.7,-11.5
+                 C -3.9,-15 -1.6,-16.6 0,-16.6
+                 C 1.6,-16.6 3.9,-15 4.7,-11.5
+                 C 5.5,-7.8 4.2,-4.2 0,-4.2 Z"
+              fill="rgba(60,140,140,0.35)"
+              stroke="rgba(0,152,152,0.5)" stroke-width="0.35"/>
+        <!-- Vertikale Mittellinie als Detail -->
+        <line x1="0" y1="-4" x2="0" y2="-16.5" stroke="rgba(0,152,152,0.35)" stroke-width="0.3"/>
+        <!-- Perforations-Pattern (Lochmuster auf der Schlagfläche) -->
+        <g fill="rgba(20,30,30,0.95)">
+          <circle cx="0"     cy="-5.5"  r="0.4"/>
+          <circle cx="-2"    cy="-6.8"  r="0.4"/>
+          <circle cx="2"     cy="-6.8"  r="0.4"/>
+          <circle cx="-3"    cy="-9"    r="0.4"/>
+          <circle cx="0"     cy="-9"    r="0.4"/>
+          <circle cx="3"     cy="-9"    r="0.4"/>
+          <circle cx="-3.3"  cy="-11.5" r="0.4"/>
+          <circle cx="0"     cy="-11.5" r="0.4"/>
+          <circle cx="3.3"   cy="-11.5" r="0.4"/>
+          <circle cx="-2.5"  cy="-13.8" r="0.4"/>
+          <circle cx="0"     cy="-13.8" r="0.4"/>
+          <circle cx="2.5"   cy="-13.8" r="0.4"/>
+          <circle cx="-1.3"  cy="-15.8" r="0.4"/>
+          <circle cx="1.3"   cy="-15.8" r="0.4"/>
+        </g>
+      </g>
+    </defs>
+
+    <!-- Atmosphäre -->
+    <ellipse cx="720" cy="115" rx="540" ry="115" fill="url(#sound)"/>
+
+    <!-- ============ COURT FLOOR ============ -->
+    <polygon points="400,145 1040,145 1110,70 470,70" fill="url(#floor)"/>
+    <polygon points="400,145 1040,145 1110,70 470,70" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.3"/>
+    <line x1="613" y1="145" x2="683" y2="70" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+    <line x1="827" y1="145" x2="897" y2="70" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+    <line x1="666.5" y1="107.5" x2="736.5" y2="107.5" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+    <line x1="773.5" y1="107.5" x2="843.5" y2="107.5" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+
+    <!-- ============ BACK WALL ============ -->
+    <polygon points="470,70 1110,70 1110,42 470,42" fill="url(#glass-back)" stroke="rgba(170,210,220,0.6)" stroke-width="0.7"/>
+    <polygon points="470,42 1110,42 1110,22 470,22" fill="url(#meshpat)" stroke="rgba(170,210,220,0.5)" stroke-width="0.5"/>
+    <line x1="470" y1="70" x2="470" y2="22" stroke="rgba(220,230,240,0.7)" stroke-width="1.5"/>
+    <line x1="630" y1="70" x2="630" y2="22" stroke="rgba(220,230,240,0.4)" stroke-width="0.8"/>
+    <line x1="790" y1="70" x2="790" y2="22" stroke="rgba(220,230,240,0.4)" stroke-width="0.8"/>
+    <line x1="950" y1="70" x2="950" y2="22" stroke="rgba(220,230,240,0.4)" stroke-width="0.8"/>
+    <line x1="1110" y1="70" x2="1110" y2="22" stroke="rgba(220,230,240,0.7)" stroke-width="1.5"/>
+    <line x1="470" y1="42" x2="1110" y2="42" stroke="rgba(220,230,240,0.4)" stroke-width="0.8"/>
+    <line x1="470" y1="22" x2="1110" y2="22" stroke="rgba(220,230,240,0.5)" stroke-width="0.8"/>
+
+    <!-- ============ LEFT SIDE WALL (nur Glas, kein zus. Mesh) ============ -->
+    <polygon points="400,145 470,70 470,22 400,97" fill="url(#glass-side)" stroke="rgba(170,210,220,0.4)" stroke-width="0.6"/>
+    <line x1="400" y1="145" x2="400" y2="97" stroke="rgba(220,230,240,0.65)" stroke-width="1.3"/>
+
+    <!-- ============ RIGHT SIDE WALL (nur Glas, kein zus. Mesh) ============ -->
+    <polygon points="1040,145 1110,70 1110,22 1040,97" fill="url(#glass-side)" stroke="rgba(170,210,220,0.4)" stroke-width="0.6"/>
+    <line x1="1040" y1="145" x2="1040" y2="97" stroke="rgba(220,230,240,0.65)" stroke-width="1.3"/>
+
+    <!-- ============ FRONT FRAME ============ -->
+    <line x1="400" y1="97" x2="1040" y2="97" stroke="rgba(220,230,240,0.45)" stroke-width="0.7" stroke-dasharray="4 3"/>
+    <line x1="400" y1="145" x2="400" y2="97" stroke="rgba(220,230,240,0.65)" stroke-width="1.3"/>
+    <line x1="1040" y1="145" x2="1040" y2="97" stroke="rgba(220,230,240,0.65)" stroke-width="1.3"/>
+
+    <!-- ============ NETZ ============ -->
+    <g>
+      <polygon points="720,145 790,70 790,40 720,115" fill="url(#meshfine)" stroke="rgba(220,230,240,0.5)" stroke-width="0.6"/>
+      <line x1="720" y1="115" x2="790" y2="40" stroke="rgba(255,255,255,0.95)" stroke-width="2.5"/>
+      <line x1="720" y1="145" x2="720" y2="113" stroke="rgba(220,230,240,0.85)" stroke-width="1.8"/>
+      <line x1="790" y1="70" x2="790" y2="38" stroke="rgba(220,230,240,0.85)" stroke-width="1.8"/>
+    </g>
+
+    <!--
+      ============================================================
+      VIER SPIELER MIT ECHTEN PADEL-SCHLÄGERN
+      ============================================================
+    -->
+
+    <!-- ===== P1 LINKS HINTEN (Smash) ===== -->
+    <g transform="translate(550, 92) scale(0.9)">
+      <ellipse cx="0" cy="2" rx="13" ry="2.5" fill="rgba(0,0,0,0.45)"/>
+      <path d="M -2,-12 L -8,-2 L -10,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M  2,-12 L  6,-3 L  9,2"  fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="-10" cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="9"   cy="2" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="6" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -7,-22 L 8,-22 L 6,-12 L -6,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="9" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="1" cy="-29" rx="5" ry="4.5" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <!-- Schlagarm: hinten oben -->
+      <path d="M 8,-22 Q 16,-30 22,-32" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- ECHTER PADEL-SCHLÄGER, leicht nach hinten gekippt -->
+      <use href="#padel-racket" transform="translate(22,-32) rotate(-15)"/>
+      <!-- Freier Arm -->
+      <path d="M -8,-22 Q -14,-18 -16,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <line x1="-2" y1="-21" x2="-2" y2="-12" stroke="rgba(0,152,152,0.7)" stroke-width="0.8"/>
+    </g>
+
+    <!-- ===== P4 RECHTS HINTEN (Defensive Bereitstellung) ===== -->
+    <g transform="translate(960, 88) scale(0.9)">
+      <ellipse cx="0" cy="2" rx="13" ry="2.5" fill="rgba(0,0,0,0.45)"/>
+      <path d="M -3,-12 L -7,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M  3,-12 L  7,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="6" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -7,-22 L 7,-22 L 6,-12 L -6,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="9" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="5" ry="4.5" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <!-- Schlagarm: nach links seitlich -->
+      <path d="M -8,-22 Q -14,-18 -18,-14" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- ECHTER SCHLÄGER, nach links seitlich gehalten -->
+      <use href="#padel-racket" transform="translate(-18,-14) rotate(-105)"/>
+      <!-- Freier Arm -->
+      <path d="M 8,-22 Q 14,-18 16,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <line x1="0" y1="-21" x2="0" y2="-12" stroke="rgba(0,152,152,0.7)" stroke-width="0.8"/>
+    </g>
+
+    <!-- ===== P2 LINKS VORN (Volley) ===== -->
+    <g transform="translate(680, 130)">
+      <ellipse cx="0" cy="2" rx="13" ry="3" fill="rgba(0,0,0,0.5)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="6" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -7,-22 L 7,-22 L 6,-12 L -6,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="9" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="5" ry="4.5" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <!-- Schlagarm: nach vorne rechts (Richtung Netz) -->
+      <path d="M 8,-22 Q 16,-22 20,-18" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- ECHTER SCHLÄGER, nach rechts/vorn (Volley) -->
+      <use href="#padel-racket" transform="translate(20,-18) rotate(80)"/>
+      <!-- Freier Arm -->
+      <path d="M -8,-22 Q -14,-18 -16,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <line x1="0" y1="-21" x2="0" y2="-12" stroke="rgba(0,152,152,0.7)" stroke-width="0.8"/>
+    </g>
+
+    <!-- ===== P3 RECHTS VORN (Volley) ===== -->
+    <g transform="translate(870, 125)">
+      <ellipse cx="0" cy="2" rx="13" ry="3" fill="rgba(0,0,0,0.5)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="3" ry="1.4" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="6" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -7,-22 L 7,-22 L 6,-12 L -6,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="9" ry="2.5" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="5" ry="4.5" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <!-- Schlagarm: nach links/vorn (Richtung Netz) -->
+      <path d="M -8,-22 Q -16,-22 -20,-18" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- ECHTER SCHLÄGER, nach links/vorn -->
+      <use href="#padel-racket" transform="translate(-20,-18) rotate(-80)"/>
+      <!-- Freier Arm -->
+      <path d="M 8,-22 Q 14,-18 16,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <line x1="0" y1="-21" x2="0" y2="-12" stroke="rgba(0,152,152,0.7)" stroke-width="0.8"/>
+    </g>
+
+    <!-- ============ BALL ============ -->
+    <g>
+      <path d="M 575,57 Q 660,52 745,72" stroke="rgba(212,255,94,0.4)" stroke-width="1.4" stroke-dasharray="2 3" fill="none"/>
+      <circle cx="745" cy="72" r="5.5" fill="#d4ff5e" stroke="#a8cc3c" stroke-width="0.8"/>
+      <path d="M 741,70 Q 745,68 749,70" stroke="rgba(168,204,60,0.7)" stroke-width="0.5" fill="none"/>
+    </g>
+
+    <!-- ============ SCHALL-WELLEN von P1 ============ -->
+    <g opacity="0.85" fill="none" stroke="#009898">
+      <ellipse cx="572" cy="55" rx="11" ry="8" stroke-width="1" opacity="0.55"/>
+      <ellipse cx="572" cy="55" rx="20" ry="14" stroke-width="0.9" opacity="0.4"/>
+      <ellipse cx="572" cy="55" rx="30" ry="21" stroke-width="0.8" opacity="0.25"/>
+      <ellipse cx="572" cy="55" rx="42" ry="28" stroke-width="0.7" opacity="0.15"/>
+    </g>
+
+    <!-- ============ +5 dB Indikator ============ -->
+    <g transform="translate(1180, 80)">
+      <line x1="0" y1="0" x2="0" y2="38" stroke="rgba(0,152,152,0.7)" stroke-width="0.8" stroke-dasharray="2 2"/>
+      <circle cx="0" cy="0" r="4" fill="rgba(0,152,152,0.95)"/>
+      <text x="8" y="3" fill="rgba(0,152,152,0.95)" font-size="11" font-weight="600" font-family="Helvetica Neue, Arial" data-i18n="banner.indicator.value">5 dB</text>
+      <text x="8" y="16" fill="rgba(255,255,255,0.45)" font-size="9" font-family="Helvetica Neue, Arial" data-i18n="banner.indicator.label">pro Schlag vs. Tennis</text>
+    </g>
+  </svg>
+
+  <!-- ============ MOBILE-SVG: kompakter Käfig + 4 Spieler (Doppel) ============ -->
+  <svg class="svg-mobile" viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="floor-m" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1e5078" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="#103355" stop-opacity="0.95"/>
+      </linearGradient>
+      <linearGradient id="glass-back-m" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(170,210,220,0.20)"/>
+        <stop offset="100%" stop-color="rgba(170,210,220,0.06)"/>
+      </linearGradient>
+      <linearGradient id="glass-side-m" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="rgba(170,210,220,0.18)"/>
+        <stop offset="100%" stop-color="rgba(170,210,220,0.06)"/>
+      </linearGradient>
+      <pattern id="meshpat-m" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+        <path d="M0,3 L6,3 M3,0 L3,6" stroke="rgba(180,210,220,0.4)" stroke-width="0.5"/>
+      </pattern>
+      <pattern id="meshfine-m" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+        <path d="M0,2 L4,2 M2,0 L2,4" stroke="rgba(180,210,220,0.55)" stroke-width="0.4"/>
+      </pattern>
+      <radialGradient id="sound-m" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(0,152,152,0.18)"/>
+        <stop offset="100%" stop-color="rgba(0,152,152,0)"/>
+      </radialGradient>
+
+      <!-- Schläger (Mobile-Variante, identische Geometrie) -->
+      <g id="padel-racket-m">
+        <rect x="-1.3" y="2" width="2.6" height="1.5" fill="rgba(40,30,20,0.95)" rx="0.5"/>
+        <rect x="-1.5" y="-1" width="3" height="3" fill="rgba(20,20,18,0.95)" rx="0.3"/>
+        <line x1="-1.5" y1="0.2" x2="1.5" y2="0.2" stroke="rgba(0,152,152,0.7)" stroke-width="0.4"/>
+        <line x1="-1.5" y1="1.4" x2="1.5" y2="1.4" stroke="rgba(0,152,152,0.7)" stroke-width="0.4"/>
+        <path d="M -1.7,-1 L -2.5,-3 L 2.5,-3 L 1.7,-1 Z" fill="rgba(20,20,18,0.95)"/>
+        <path d="M 0,-3 C -5.5,-3 -7,-7.5 -6,-12 C -5,-16 -2,-18 0,-18 C 2,-18 5,-16 6,-12 C 7,-7.5 5.5,-3 0,-3 Z"
+              fill="rgba(35,90,90,0.6)" stroke="rgba(0,180,180,0.95)" stroke-width="0.85"/>
+        <path d="M 0,-4.2 C -4.2,-4.2 -5.5,-7.8 -4.7,-11.5 C -3.9,-15 -1.6,-16.6 0,-16.6 C 1.6,-16.6 3.9,-15 4.7,-11.5 C 5.5,-7.8 4.2,-4.2 0,-4.2 Z"
+              fill="rgba(60,140,140,0.35)" stroke="rgba(0,152,152,0.5)" stroke-width="0.35"/>
+        <line x1="0" y1="-4" x2="0" y2="-16.5" stroke="rgba(0,152,152,0.35)" stroke-width="0.3"/>
+        <g fill="rgba(20,30,30,0.95)">
+          <circle cx="0" cy="-5.5" r="0.4"/>
+          <circle cx="-2" cy="-6.8" r="0.4"/><circle cx="2" cy="-6.8" r="0.4"/>
+          <circle cx="-3" cy="-9" r="0.4"/><circle cx="0" cy="-9" r="0.4"/><circle cx="3" cy="-9" r="0.4"/>
+          <circle cx="-3.3" cy="-11.5" r="0.4"/><circle cx="0" cy="-11.5" r="0.4"/><circle cx="3.3" cy="-11.5" r="0.4"/>
+          <circle cx="-2.5" cy="-13.8" r="0.4"/><circle cx="0" cy="-13.8" r="0.4"/><circle cx="2.5" cy="-13.8" r="0.4"/>
+          <circle cx="-1.3" cy="-15.8" r="0.4"/><circle cx="1.3" cy="-15.8" r="0.4"/>
+        </g>
+      </g>
+    </defs>
+
+    <!-- Atmosphäre -->
+    <ellipse cx="200" cy="70" rx="180" ry="60" fill="url(#sound-m)"/>
+
+    <!--
+      MOBILE-COURT-GEOMETRIE
+      Front-Edge: y=92, Back-Edge: y=38, Wand-Top: y=10
+      Front: (50,92) — (350,92);  Back: (80,38) — (380,38)
+      Schmaler, kompakter, 4 Spieler (Padel-Doppel)
+    -->
+
+    <!-- Court Floor -->
+    <polygon points="50,92 350,92 380,38 80,38" fill="url(#floor-m)"/>
+    <polygon points="50,92 350,92 380,38 80,38" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+    <line x1="150" y1="92" x2="180" y2="38" stroke="rgba(255,255,255,0.5)" stroke-width="0.7"/>
+    <line x1="250" y1="92" x2="280" y2="38" stroke="rgba(255,255,255,0.5)" stroke-width="0.7"/>
+    <line x1="175" y1="65" x2="205" y2="65" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
+    <line x1="225" y1="65" x2="255" y2="65" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
+
+    <!-- Back Wall -->
+    <polygon points="80,38 380,38 380,22 80,22" fill="url(#glass-back-m)" stroke="rgba(170,210,220,0.6)" stroke-width="0.6"/>
+    <polygon points="80,22 380,22 380,10 80,10" fill="url(#meshpat-m)" stroke="rgba(170,210,220,0.5)" stroke-width="0.4"/>
+    <line x1="80" y1="38" x2="80" y2="10" stroke="rgba(220,230,240,0.7)" stroke-width="1.2"/>
+    <line x1="380" y1="38" x2="380" y2="10" stroke="rgba(220,230,240,0.7)" stroke-width="1.2"/>
+    <line x1="230" y1="38" x2="230" y2="10" stroke="rgba(220,230,240,0.35)" stroke-width="0.7"/>
+    <line x1="80" y1="22" x2="380" y2="22" stroke="rgba(220,230,240,0.4)" stroke-width="0.7"/>
+    <line x1="80" y1="10" x2="380" y2="10" stroke="rgba(220,230,240,0.5)" stroke-width="0.7"/>
+
+    <!-- Side Walls (nur Glas, ohne Mesh) -->
+    <polygon points="50,92 80,38 80,10 50,64" fill="url(#glass-side-m)" stroke="rgba(170,210,220,0.4)" stroke-width="0.5"/>
+    <line x1="50" y1="92" x2="50" y2="64" stroke="rgba(220,230,240,0.65)" stroke-width="1"/>
+    <polygon points="350,92 380,38 380,10 350,64" fill="url(#glass-side-m)" stroke="rgba(170,210,220,0.4)" stroke-width="0.5"/>
+    <line x1="350" y1="92" x2="350" y2="64" stroke="rgba(220,230,240,0.65)" stroke-width="1"/>
+
+    <!-- Front Frame (offen, nur Top-Linie + Pfosten) -->
+    <line x1="50" y1="64" x2="350" y2="64" stroke="rgba(220,230,240,0.4)" stroke-width="0.6" stroke-dasharray="3 2"/>
+
+    <!-- Netz quer -->
+    <g>
+      <polygon points="200,92 230,38 230,18 200,72" fill="url(#meshfine-m)" stroke="rgba(220,230,240,0.5)" stroke-width="0.5"/>
+      <line x1="200" y1="72" x2="230" y2="18" stroke="rgba(255,255,255,0.95)" stroke-width="2"/>
+      <line x1="200" y1="92" x2="200" y2="71" stroke="rgba(220,230,240,0.85)" stroke-width="1.4"/>
+      <line x1="230" y1="38" x2="230" y2="17" stroke="rgba(220,230,240,0.85)" stroke-width="1.4"/>
+    </g>
+
+    <!-- ===== LINKES TEAM · PARTNER (far-side, ready stance) ===== -->
+    <g transform="translate(115, 50) scale(0.62)">
+      <ellipse cx="0" cy="2" rx="11" ry="2.5" fill="rgba(0,0,0,0.45)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="5.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -6.5,-22 L 6.5,-22 L 5.5,-12 L -5.5,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="8.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="4.5" ry="4" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <path d="M 7,-22 Q 10,-18 4,-15" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <path d="M -7,-22 Q -4,-18 0,-15" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.1" stroke-linecap="round"/>
+      <use href="#padel-racket-m" transform="translate(2,-15) rotate(0)"/>
+    </g>
+
+    <!-- ===== RECHTES TEAM · PARTNER (far-side, ready stance) ===== -->
+    <g transform="translate(308, 48) scale(0.62)">
+      <ellipse cx="0" cy="2" rx="11" ry="2.5" fill="rgba(0,0,0,0.45)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="5.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -6.5,-22 L 6.5,-22 L 5.5,-12 L -5.5,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="8.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="4.5" ry="4" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <path d="M -7,-22 Q -10,-18 -4,-15" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <path d="M 7,-22 Q 4,-18 0,-15" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.1" stroke-linecap="round"/>
+      <use href="#padel-racket-m" transform="translate(-2,-15) rotate(0)"/>
+    </g>
+
+    <!-- ===== LINKES TEAM · FRONT (Volley, Schlagmoment) ===== -->
+    <g transform="translate(150, 80) scale(0.95)">
+      <ellipse cx="0" cy="2" rx="11" ry="2.5" fill="rgba(0,0,0,0.5)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="5.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -6.5,-22 L 6.5,-22 L 5.5,-12 L -5.5,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="8.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="4.5" ry="4" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <path d="M 7,-22 Q 14,-22 18,-18" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <use href="#padel-racket-m" transform="translate(18,-18) rotate(80)"/>
+      <path d="M -7,-22 Q -13,-18 -14,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.1" stroke-linecap="round"/>
+    </g>
+
+    <!-- ===== RECHTES TEAM · FRONT (Volley, gespiegelt) ===== -->
+    <g transform="translate(280, 78) scale(0.95)">
+      <ellipse cx="0" cy="2" rx="11" ry="2.5" fill="rgba(0,0,0,0.5)"/>
+      <path d="M -3,-12 L -6,-2 L -7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M  3,-12 L  6,-2 L  7,4" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.6" stroke-linecap="round"/>
+      <ellipse cx="-7" cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="7"  cy="4" rx="2.6" ry="1.2" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-12" rx="5.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <path d="M -6.5,-22 L 6.5,-22 L 5.5,-12 L -5.5,-12 Z" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-23" rx="8.5" ry="2.3" fill="rgba(20,20,18,0.95)"/>
+      <ellipse cx="0" cy="-29" rx="4.5" ry="4" fill="rgba(20,20,18,0.95)" stroke="rgba(0,152,152,0.55)" stroke-width="0.7"/>
+      <path d="M -7,-22 Q -14,-22 -18,-18" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.3" stroke-linecap="round"/>
+      <use href="#padel-racket-m" transform="translate(-18,-18) rotate(-80)"/>
+      <path d="M 7,-22 Q 13,-18 14,-12" fill="none" stroke="rgba(20,20,18,0.95)" stroke-width="2.1" stroke-linecap="round"/>
+    </g>
+
+    <!-- Ball mit Spur -->
+    <g>
+      <path d="M 165,52 Q 200,42 220,48" stroke="rgba(212,255,94,0.4)" stroke-width="1.2" stroke-dasharray="2 2" fill="none"/>
+      <circle cx="220" cy="48" r="4" fill="#d4ff5e" stroke="#a8cc3c" stroke-width="0.7"/>
+    </g>
+
+    <!-- Schall-Wellen (subtil) -->
+    <g opacity="0.7" fill="none" stroke="#009898">
+      <ellipse cx="166" cy="55" rx="9" ry="6" stroke-width="0.85" opacity="0.5"/>
+      <ellipse cx="166" cy="55" rx="16" ry="11" stroke-width="0.7" opacity="0.3"/>
+      <ellipse cx="166" cy="55" rx="24" ry="16" stroke-width="0.6" opacity="0.18"/>
+    </g>
+  </svg>
+
+  <div class="banner-overlay" data-i18n-html="banner.overlay">Padel &amp; Pickleball<br><strong>Emissionskennwerte</strong></div>
+  <div class="banner-meta" data-i18n-html="banner.meta"><strong>CadnaA</strong> · 18. BImSchV · VDI 3770</div>
+</div>
+
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div style="background: var(--dark);">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="hero-tag" data-i18n-html="hero.tag">Neu: Padel &amp; Pickleball</span>
+      <h1 data-i18n-html="hero.h1">Wenn der Knall auf dem Court zum <span>Lärmgutachten</span> wird</h1>
+      <p class="hero-sub" data-i18n-html="hero.sub">Padel und Pickleball boomen – ob <strong style="color:rgba(255,255,255,0.9);">Außenanlage</strong> mit Genehmigungserfordernis oder <strong style="color:rgba(255,255,255,0.9);">Halle</strong> mit Lärmproblem für Spieler und Besucher: DataKustik hat die fehlenden Emissionskennwerte abgeleitet und in das hierfür entwickelte Berechnungsmodell integriert.</p>
+      <a href="#registrierung" class="btn-primary" data-i18n="hero.btn">Jetzt informieren</a>
+    </div>
+    <div class="hero-visual">
+      <!-- Animated sound-wave + padel court SVG illustration -->
+      <svg viewBox="0 0 380 320" width="380" xmlns="http://www.w3.org/2000/svg">
+        <!-- court outline -->
+        <rect x="60" y="160" width="260" height="140" rx="4" fill="none" stroke="#009898" stroke-width="1.5" opacity="0.4"/>
+        <!-- net -->
+        <line x1="190" y1="160" x2="190" y2="300" stroke="#009898" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+        <!-- service lines -->
+        <line x1="60" y1="220" x2="320" y2="220" stroke="#009898" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.3"/>
+        <!-- glass walls indication -->
+        <rect x="60" y="160" width="260" height="140" rx="4" fill="none" stroke="rgba(0,152,152,0.15)" stroke-width="8"/>
+
+        <!-- impulse waveform -->
+        <polyline points="20,80 40,80 50,20 60,140 70,60 80,100 95,80 115,80 130,30 145,130 160,70 175,80 380,80"
+          fill="none" stroke="#009898" stroke-width="2" opacity="0.7"/>
+
+        <!-- 5s window marker -->
+        <rect x="115" y="15" width="60" height="120" rx="3" fill="rgba(0,152,152,0.08)" stroke="#009898" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="145" y="11" fill="#009898" font-size="9" text-anchor="middle" font-family="Arial" opacity="0.8">5 s</text>
+
+        <!-- dB label (oben links, abseits der Welle, ohne (A)) -->
+        <text x="10" y="12" fill="rgba(255,255,255,0.45)" font-size="9" font-family="Arial">dB</text>
+
+        <!-- ball trajectory arc -->
+        <path d="M 100 290 Q 190 150 280 290" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <!-- ball -->
+        <circle cx="190" cy="200" r="6" fill="#009898" opacity="0.6"/>
+        <circle cx="190" cy="200" r="10" fill="none" stroke="#009898" stroke-width="1" opacity="0.3"/>
+
+        <!-- impact sparks -->
+        <g opacity="0.5">
+          <line x1="190" y1="192" x2="190" y2="178" stroke="#009898" stroke-width="1.5"/>
+          <line x1="190" y1="192" x2="200" y2="180" stroke="#009898" stroke-width="1.5"/>
+          <line x1="190" y1="192" x2="180" y2="180" stroke="#009898" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STATS BAR ══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><path d="M10 18 Q18 8 26 18 Q18 28 10 18Z" fill="rgba(255,255,255,0.2)"/><circle cx="18" cy="18" r="4" fill="white"/></svg>
+      <div>
+        <div class="stat-number" data-i18n="stat1.number">5 dB</div>
+        <div class="stat-label" data-i18n="stat1.label">Padel ist pro Schlag lauter als Tennis</div>
+      </div>
+    </div>
+    <div class="stat">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="20" width="6" height="12" fill="rgba(255,255,255,0.3)" rx="1"/><rect x="13" y="14" width="6" height="18" fill="rgba(255,255,255,0.5)" rx="1"/><rect x="22" y="8" width="6" height="24" fill="white" rx="1"/></svg>
+      <div>
+        <div class="stat-number" data-i18n="stat2.number">30 Jahre</div>
+        <div class="stat-label" data-i18n-html="stat2.label">Tennis mit Taktmaximalverfahren – jetzt auch für Padel &amp; Pickleball</div>
+      </div>
+    </div>
+    <div class="stat">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 18 L14 26 L30 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/></svg>
+      <div>
+        <div class="stat-number" data-i18n="stat3.number">Qualitätsgesichert</div>
+        <div class="stat-label" data-i18n="stat3.label">Umgebungslärm-Berechnungsmethoden in CadnaA implementiert</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label" data-i18n="intro.label">Das Problem</div>
+  <h2 data-i18n="intro.h2">Warum Padel-Lärm besonderer Aufmerksamkeit bedarf</h2>
+  <p class="section-lead" data-i18n="intro.lead">Ballschlaggeräusche sind impulsiv – kurz, laut, auffällig. Sie wirken störender als kontinuierliche Geräusche gleicher Energie.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="4" fill="#e6f5f5"/>
+          <polyline points="6,24 10,24 14,8 18,36 22,16 26,24 30,24 34,24" stroke="#009898" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 data-i18n="card1.h3">Impulsiver Charakter</h3>
+      <p data-i18n="card1.p">Jeder Ballschlag erzeugt einen scharf abgegrenzten Schallimpuls mit entsprechendem Störpotential. Internationale wie auch nationale Normen schreiben vor, diesen Impulscharakter bei der Beurteilung gesondert zu berücksichtigen.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="4" fill="#e6f5f5"/>
+          <rect x="8" y="28" width="8" height="6" rx="1" fill="#009898" opacity="0.4"/>
+          <rect x="20" y="20" width="8" height="14" rx="1" fill="#009898" opacity="0.7"/>
+          <rect x="32" y="12" width="8" height="22" rx="1" fill="#009898" opacity="0"/>
+          <rect x="32" y="12" width="8" height="22" rx="1" fill="#009898"/>
+          <text x="20" y="10" font-size="8" fill="#009898" font-family="Arial" text-anchor="middle">dB</text>
+          <line x1="6" y1="34" x2="42" y2="34" stroke="#009898" stroke-width="1" opacity="0.3"/>
+        </svg>
+      </div>
+      <h3 data-i18n="card2.h3">Padel lauter als Tennis</h3>
+      <p data-i18n-html="card2.p">Messungen des Ballschlags ergaben für Padel um 5 dB und für Pickleball um 7,5 dB höhere Werte als für Tennis – relevante Unterschiede für die Prognose.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="4" fill="#e6f5f5"/>
+          <circle cx="20" cy="20" r="12" stroke="#009898" stroke-width="2" fill="none"/>
+          <path d="M20 10 L20 20 L28 20" stroke="#009898" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 data-i18n="card3.h3">Fehlende Grundlage geschlossen</h3>
+      <p data-i18n="card3.p">Für Tennis gibt es seit 30 Jahren anerkannte Kennwerte – für Padel und Pickleball fehlten sie. Diese Datenlücke ist nun geschlossen.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ AUSSENANLAGEN VS. HALLEN ══════════════════════════ -->
+<div class="section" style="padding-top: 64px; padding-bottom: 64px;">
+  <div class="section-label" data-i18n="twoCol.label">Zwei Anwendungsfelder</div>
+  <h2 data-i18n="twoCol.h2">Außenanlage oder Halle – Mit DataKustik-Software analysieren Sie beide Anwendungsfälle</h2>
+  <p class="section-lead" data-i18n="twoCol.lead">Padel im Freien und Padel in der Halle stellen unterschiedliche Anforderungen an die akustische Untersuchung. Mit DataKustik-Software können beide Szenarien präzise bewertet werden.</p>
+
+  <div class="two-col-grid" style="margin-top: 8px;">
+
+    <!-- Außenanlagen -->
+    <div style="background: var(--light); border-radius: 6px; padding: 40px 36px; border-top: 4px solid var(--teal);">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+        <div style="width:48px;height:48px;background:var(--teal-light);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="2" y="16" width="22" height="8" rx="1" stroke="#009898" stroke-width="1.8"/><path d="M6 16V10M20 16V10" stroke="#009898" stroke-width="1.8" stroke-linecap="round"/><path d="M2 10h22" stroke="#009898" stroke-width="1.8"/><path d="M6 10V6l7-4 7 4v4" stroke="#009898" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;" data-i18n="outdoor.label">Außenanlagen</div>
+          <h3 style="font-size:20px;font-weight:700;line-height:1.2;margin:0;" data-i18n="outdoor.h3">Belastbare Prognosen für die Baugenehmigung</h3>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:20px;" data-i18n-html="outdoor.p">Padel-Anlagen unterliegen den <strong style="color:var(--dark);">geltenden Immissionsschutz-Regeln</strong> und erfordern meist ein belastbares Lärmgutachten. DataKustik liefert die Grundlage: mit Emissionskennwerten, anerkannter Berechnungsmethodik und der Software für eine effiziente Umsetzung der Prognose.</p>
+      <ul class="checklist">
+        <li data-i18n-html="outdoor.li1">Schallimmissionsprognose nach geltenden Sportanlagen-Lärmschutz-Verordnungen &amp; VDI 3770</li>
+        <li data-i18n="outdoor.li2">Dokumentation der Berechnungsergebnisse für Genehmigungsbehörden</li>
+        <li data-i18n="outdoor.li3">Bewertung über Immissionspunkt- oder Rasterberechnung</li>
+        <li data-i18n="outdoor.li4">Optimierung von Court-Anordnung und Schallschutzmaßnahmen</li>
+        <li data-i18n="outdoor.li5">Frühzeitige Planungssicherheit vor Baubeginn</li>
+      </ul>
+      <div class="norm-badges" style="margin-top:20px;">
+        <span class="norm-badge" data-i18n="outdoor.badge1">⚖️ Gesetzliche Bestimmungen</span>
+        <span class="norm-badge">📐 VDI 3770</span>
+        <span class="norm-badge" data-i18n="outdoor.badge3">🏛️ Baugenehmigung</span>
+      </div>
+    </div>
+
+    <!-- Hallen -->
+    <div style="background: var(--light); border-radius: 6px; padding: 40px 36px; border-top: 4px solid var(--teal);">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+        <div style="width:48px;height:48px;background:var(--teal-light);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="2" y="8" width="22" height="16" rx="1" stroke="#009898" stroke-width="1.8"/><path d="M2 8l11-6 11 6" stroke="#009898" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 24v-6h6v6" stroke="#009898" stroke-width="1.8"/></svg>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;" data-i18n="indoor.label">Padel-Hallen</div>
+          <h3 style="font-size:20px;font-weight:700;line-height:1.2;margin:0;" data-i18n="indoor.h3">Lärmreduzierung für Spieler und Besucher</h3>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:20px;" data-i18n-html="indoor.p">In geschlossenen Hallen kann durch Reflexionen eine erhebliche Schallbelastung entstehen. Mit der DataKustik Software <strong style="color:var(--dark);">CadnaR</strong> können zielgenaue Maßnahmen zur Lärmreduzierung im Innenraum geplant und mit Anforderungen sowohl im Innenraum für Spieler und Zuschauer wie auch in benachbarten Außenbereichen für Anwohner abgeglichen werden.</p>
+      <ul class="checklist">
+        <li data-i18n="indoor.li1">Raumakustische Analyse: Nachhallzeit, Schalldruckpegel</li>
+        <li data-i18n="indoor.li2">Raumakustische Planung gemäß DIN 18041</li>
+        <li data-i18n="indoor.li3">Schallschutz für Zuschauer-, Gastronomie- und Empfangsbereiche</li>
+        <li data-i18n="indoor.li4">Optimierung von Schallschutzmaßnahmen, z. B. Schallabsorber</li>
+        <li data-i18n="indoor.li5">Beurteilung der Schallübertragung nach außen über die Fassade oder Öffnungen</li>
+        <li data-i18n="indoor.li6">Simulationsgestützte Planung vor dem Ausbau</li>
+      </ul>
+      <div class="norm-badges" style="margin-top:20px;">
+        <span class="norm-badge" data-i18n="indoor.badge1">🏠 Raumakustik</span>
+        <span class="norm-badge" data-i18n="indoor.badge2">🔇 Lärmreduzierung</span>
+        <span class="norm-badge" data-i18n="indoor.badge3">📋 DIN 18041</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ LEVEL TABS ═════════════════════════════════════════ -->
+<div class="level-section" id="wissen">
+  <div class="level-inner">
+    <div class="section-label" data-i18n="tabs.label">Wissen nach Bedarf</div>
+    <h2 data-i18n="tabs.h2">Was Sie wissen müssen – passend zu Ihrer Perspektive</h2>
+    <p class="section-lead" style="margin-bottom: 0;" data-i18n="tabs.lead">Wählen Sie Ihre Perspektive. Alle Inhalte basieren auf denselben wissenschaftlichen Grundlagen – vermittelt in der Tiefe, die für Sie relevant ist.</p>
+
+    <div class="tab-header" style="margin-top: 32px;" role="tablist">
+      <button type="button" class="tab-btn active" data-tab="laie" role="tab" aria-selected="true" aria-controls="tab-laie">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="pointer-events:none;"><circle cx="7" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1 13c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span data-i18n-html="tab1.btn" style="pointer-events:none;">Padel Betreiber &amp; Hersteller</span>
+        <span class="tab-badge" data-i18n="tab1.badge" style="pointer-events:none;">Einstieg</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="bauamt" role="tab" aria-selected="false" aria-controls="tab-bauamt">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="pointer-events:none;"><rect x="1" y="4" width="12" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M4 4V3a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span data-i18n="tab2.btn" style="pointer-events:none;">Bauämter &amp; Kommunen</span>
+        <span class="tab-badge" data-i18n="tab2.badge" style="pointer-events:none;">Behörden</span>
+      </button>
+      <button type="button" class="tab-btn" data-tab="gutachter" role="tab" aria-selected="false" aria-controls="tab-gutachter">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="pointer-events:none;"><path d="M2 2h10v10H2z" stroke="currentColor" stroke-width="1.5" rx="1"/><path d="M5 6h4M5 8h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span data-i18n="tab3.btn" style="pointer-events:none;">Gutachter &amp; Sachverständige</span>
+        <span class="tab-badge" data-i18n="tab3.badge" style="pointer-events:none;">Fachebene</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: LAIEN / INVESTOREN -->
+    <div class="tab-panel active" id="tab-laie">
+      <div class="panel-grid">
+        <div class="panel-text">
+          <h3 data-i18n="p1.h3">Padel boomt – und die Nachbarn hören mit</h3>
+          <p data-i18n-html="p1.p1">Padel gehört zu den am schnellsten wachsenden Sportarten. Neue Anlagen entstehen mitten in Städten – und damit in direkter Nachbarschaft zu Wohngebieten. Das ist gut für den Sport, bringt aber eine Frage mit, die viele Investoren unterschätzen: <strong>Wie laut ist Padel wirklich, und was bedeutet das für meine Baugenehmigung?</strong></p>
+          <p data-i18n="p1.p2">Der entscheidende Unterschied zu anderen Sportarten: Padel erzeugt keine gleichmäßige Geräuschkulisse, sondern kurze, harte Schläge – impulsive Spitzenpegel, die von Anwohnern als deutlich störender wahrgenommen werden als Dauerlärm gleicher Energie.</p>
+          <div class="highlight-box">
+            <p data-i18n="p1.highlight">Messungen zeigen: Padel erzeugt pro Ballschlag messbar mehr störenden Schall als Tennis – und bei mehreren gleichzeitig bespielten Courts steigt die Gesamtbelastung. Wichtig: Die Pegel addieren sich dabei nicht einfach – innerhalb jedes Fünf-Sekunden-Takts ist stets nur der lauteste Schlag maßgebend.</p>
+          </div>
+          <p data-i18n-html="p1.p3">Die gesetzlichen Regelungen wie die <strong>Sportanlagenlärmschutzverordnung</strong> schreiben vor, wie Lärm von Sportanlagen gemessen und bewertet werden muss. DataKustik hat fehlende Emissionskennwerte für Padel und Pickleball erhoben und in das inzwischen für Tennis eingeführte und bewährte <strong>Taktmaximalverfahren</strong> zur rechnerischen Prognose integriert. Das Ergebnis: Für jeden geplanten Standort lässt sich jetzt nachvollziehbar berechnen, ob eine Anlage genehmigungsfähig ist – <em>bevor</em> gebaut wird.</p>
+
+          <div style="margin-top:24px;padding:16px 20px;background:var(--light);border-left:3px solid var(--teal);border-radius:3px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--teal-dark);text-transform:uppercase;margin-bottom:8px;" data-i18n="p1.intl.label">Andere Länder / Regionen</div>
+            <p style="font-size:13px;color:var(--mid);line-height:1.65;margin:0;" data-i18n="p1.intl.text">In Ländern, in denen das Taktmaximalverfahren nicht angewendet wird, kann die Berechnung vereinfacht mit regulären Schallquellen erfolgen. Hierzu können in CadnaA Industrieschallquellen mit der entsprechenden Schallleistung angesetzt werden. Bei Bedarf ist zusätzlich ein Zuschlag für Impulshaltigkeit zu berücksichtigen.</p>
+          </div>
+
+          <p data-i18n-html="p1.p4">Planen Sie eine <strong>Halle</strong>? Mit der DataKustik Software CadnaR können zielgenaue Maßnahmen zur Lärmreduzierung im Innenraum geplant und mit Anforderungen sowohl im Innenraum für Spieler und Zuschauer wie auch in benachbarten Außenbereichen für Anwohner abgeglichen werden.</p>
+          <div class="norm-badges">
+            <span class="norm-badge" data-i18n="tab1.badge1">⚖️ Gesetzliche Bestimmungen</span>
+            <span class="norm-badge">📐 VDI 3770</span>
+            <span class="norm-badge" data-i18n="tab1.badge3">✅ Planungssicherheit</span>
+          </div>
+        </div>
+        <div class="panel-visual">
+          <h4 data-i18n="p1.vis.h4">Auf einen Blick</h4>
+          <ul class="checklist">
+            <li data-i18n="p1.li1">Padel-Lärm ist impulsiv – kurz, laut, störend</li>
+            <li data-i18n="p1.li2">Höhere Schallpegel als Tennis pro Schlag</li>
+            <li data-i18n="p1.li3">Genehmigungspflicht nach 18. BImSchV</li>
+            <li data-i18n="p1.li4">Verlässliche Prognose jetzt auch für Padel möglich</li>
+            <li data-i18n="p1.li5">Schutzmaßnahmen früh planen = Kosten sparen</li>
+            <li data-i18n="p1.li6">Überdachungen und Hallen: Raumakustik separat betrachten</li>
+            <li data-i18n="p1.li7">Hallenplanung: Lärmschutz für Spieler und Besucher einplanen</li>
+          </ul>
+          <!-- Mini SVG: waveform comparison -->
+          <svg viewBox="0 0 260 100" style="width:100%;margin-top:20px;" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="12" font-size="9" fill="#4a4a48" font-family="Arial">Tennis</text>
+            <polyline points="0,30 20,30 30,22 40,30 55,28 65,30 80,30 95,18 110,30 260,30" stroke="#009898" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <text x="0" y="55" font-size="9" fill="#4a4a48" font-family="Arial">Padel</text>
+            <polyline points="0,72 20,72 28,48 38,80 50,62 62,72 80,72 88,42 100,82 115,65 125,72 260,72" stroke="#009898" stroke-width="2" fill="none"/>
+            <line x1="0" y1="30" x2="260" y2="30" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="0" y1="72" x2="260" y2="72" stroke="#e0e0e0" stroke-width="0.5"/>
+            <text x="258" y="26" font-size="8" fill="#009898" font-family="Arial" text-anchor="end">95 dB</text>
+            <text x="258" y="84" font-size="8" fill="#009898" font-family="Arial" text-anchor="end">100 dB</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: BAUAMT -->
+    <div class="tab-panel" id="tab-bauamt">
+      <div class="panel-grid">
+        <div class="panel-text">
+          <h3 data-i18n="p2.h3">Was Behörden wissen sollten, wenn ein Padel-Antrag eingeht</h3>
+          <p data-i18n-html="p2.p1">Padel-Anlagen entstehen zunehmend in unmittelbarer Nachbarschaft zu schutzbedürftigen Nutzungen – und landen damit auf den Schreibtischen von Baugenehmigungsbehörden. Die rechtliche Grundlage: die <strong>Sportanlagenlärmschutzverordnung</strong>. Das technische Werkzeug zur Ermittlung der Immissionen aus Sport- und Freizeitanlagen ist die <strong>VDI 3770</strong>. Die Herausforderung war bislang: Für Padel fehlen die Emissionsdaten sowie eine Erweiterung des Verfahrens.</p>
+          <p data-i18n-html="p2.p2">DataKustik hat auf Basis realer Messungen an Padel-Anlagen Emissionskennwerte ermittelt, die in der <a href="https://noisenewsinternational.net/racket-sports-and-environmental-noise-assessing-and-predicting-impulsive-noise-from-tennis-padel-and-pickleball/" target="_blank" style="color:var(--teal);text-decoration:underline;text-underline-offset:3px;">Fachliteratur veröffentlicht</a> und in der Berechnungssoftware CadnaA implementiert sind. Damit können Gutachter jetzt nachvollziehbare und belastbare Berechnungen vorlegen.</p>
+          <p data-i18n-html="p2.p3"><strong>Was ein Lärmgutachten für Padel enthalten sollte:</strong> korrekte Emissionskennwerte, ungünstigster Betriebsfall (alle Courts belegt), alle relevanten Immissionsorte, sowie bei überdachten Anlagen mit nahe liegenden Immissionspunkten eine Sonderfallbetrachtung.</p>
+
+          <div style="margin-top:24px;padding:16px 20px;background:var(--light);border-left:3px solid var(--teal);border-radius:3px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--teal-dark);text-transform:uppercase;margin-bottom:8px;" data-i18n="p2.intl.label">Andere Länder / Regionen</div>
+            <p style="font-size:13px;color:var(--mid);line-height:1.65;margin:0;" data-i18n="p2.intl.text">In Ländern, in denen das Taktmaximalverfahren nicht angewendet wird, kann die Berechnung vereinfacht mit regulären Schallquellen erfolgen. Hierzu können in CadnaA Industrieschallquellen mit der entsprechenden Schallleistung angesetzt werden. Bei Bedarf ist zusätzlich ein Zuschlag für Impulshaltigkeit zu berücksichtigen.</p>
+          </div>
+
+          <div class="norm-badges">
+            <span class="norm-badge" data-i18n="tab2.badge1">⚖️ Gesetzliche Bestimmungen</span>
+            <span class="norm-badge">📐 VDI 3770</span>
+            <span class="norm-badge" data-i18n="tab2.badge3">🔍 Antragsprüfung</span>
+          </div>
+        </div>
+        <div class="panel-visual">
+          <h4 data-i18n="p2.vis.h4">Prüfkriterien im Überblick</h4>
+          <ul class="checklist">
+            <li data-i18n="p2.li1">Padel-spezifische Emissionskennwerte verwendet?</li>
+            <li data-i18n="p2.li2">Ungünstigster Betriebsfall berechnet?</li>
+            <li data-i18n="p2.li3">Taktmaximalverfahren mit Berücksichtigung von sportartspezifischen Zeitanteilen korrekt angewendet?</li>
+            <li data-i18n="p2.li4">Alle schutzwürdigen Immissionsorte berücksichtigt?</li>
+            <li data-i18n="p2.li5">Überdachung / komplexe Geometrie gesondert behandelt?</li>
+            <li data-i18n="p2.li6">Konkrete Minderungsmaßnahmen bei Überschreitung angegeben?</li>
+          </ul>
+          <div style="margin-top:20px;padding:16px;background:var(--teal-light);border-radius:3px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--teal-dark);text-transform:uppercase;margin-bottom:8px;" data-i18n="p2.note.label">Hinweis</div>
+            <p style="font-size:13px;color:var(--mid);margin:0;" data-i18n-html="p2.note.text">Die VDI 3770 enthält neben dem „Genauen Verfahren" (Taktmaximalverfahren) auch ein „Überschlägiges Verfahren", das zur vereinfachten Berechnung des Beurteilungswertes mit sportartspezifischen L<sub>WATeq</sub>-Werten arbeitet. Da es bei mehreren Quellen stets zu einer Überschätzung der Immissionen führt, eignet es sich vor allem für eine vereinfachte Vorbeurteilung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: GUTACHTER -->
+    <div class="tab-panel" id="tab-gutachter">
+      <div class="panel-grid">
+        <div class="panel-text">
+          <h3 data-i18n="p3.h3">Emissionskennwerte und Berechnungsverfahren für Tennis, Padel und Pickleball</h3>
+          <p data-i18n-html="p3.p1">Das Taktmaximalverfahren bildet die Grundlage. Die Erweiterung auf Padel und Pickleball erfolgt durch eine Aufschlüsselung des Verfahrens sowie durch die direkte Anwendung sportartspezifischer Emissionskennwerte k<sub>sp</sub> und L<sub>WAFmax</sub>, die aus Messungen und Berechnungen abgeleitet wurden.</p>
+
+          <table class="emi-table" style="margin: 20px 0;">
+            <thead>
+              <tr>
+                <th data-i18n="p3.th1">Sportart</th>
+                <th data-i18n="p3.th2">Quellen/Platz</th>
+                <th>L<sub>WAFmax</sub> [dB(A)]</th>
+                <th>k<sub>sp</sub></th>
+                <th>L<sub>WATeq</sub> [dB(A)]</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td data-i18n="p3.table.tennis">Tennis</td><td style="text-align:center">2</td><td style="text-align:center">95,0</td><td style="text-align:center">0,30</td><td style="text-align:center">90,0</td></tr>
+              <tr><td data-i18n="p3.table.padel">Padel</td><td style="text-align:center">1</td><td style="text-align:center">100,0</td><td style="text-align:center">0,50</td><td style="text-align:center">97,0</td></tr>
+              <tr><td data-i18n="p3.table.pickleball">Pickleball</td><td style="text-align:center">1</td><td style="text-align:center">102,5</td><td style="text-align:center">0,50</td><td style="text-align:center">99,5</td></tr>
+            </tbody>
+          </table>
+
+          <p data-i18n-html="p3.p2">Das <strong>Genaue Verfahren der VDI 3770</strong> berücksichtigt, dass innerhalb eines 5-s-Intervalls nur der dominante Impuls pegelbestimmend ist. Zunächst werden die Teilpegel am Immissionsort auf Basis der sportartspezifischen maximalen Schallleistungspegel L<sub>WAFmax</sub> vorab berechnet. Anschließend werden die Quellen nach ihrer Immissionsrelevanz geordnet und die zeitanteilig korrigierten Emissionswerte bestimmt. Auf dieser Grundlage erfolgt die Prognoseberechnung mit energetischer Summation der Einzelbeiträge am Immissionsort zum Wirkpegel.</p>
+
+          <p data-i18n-html="p3.p2b">Mit den nachstehenden Formeln lässt sich das in der VDI 3770 für Tennis spezifizierte Verfahren auf die Sportarten Padel und Pickleball erweitern. Zugleich kann damit auch ein gemischter Betrieb dieser Sportarten rechnerisch berücksichtigt werden.</p>
+
+          <div class="formula-block">
+            <div class="formula-line"><span class="formula-var">k<sub>n</sub></span> <span class="formula-eq">=</span> (1 − s<sub>n−1</sub>) · k<sub>sp</sub></div>
+            <div class="formula-line"><span class="formula-var">s<sub>n</sub></span> <span class="formula-eq">=</span> s<sub>n−1</sub> + k<sub>n</sub>&nbsp;&nbsp;<span class="formula-note">(s<sub>0</sub> = 0)</span></div>
+            <div class="formula-line"><span class="formula-var">ΔL<sub>n</sub></span> <span class="formula-eq">=</span> 10 · log<sub>10</sub>(k<sub>n</sub>)&nbsp;&nbsp;<span class="formula-note">[dB]</span></div>
+            <div class="formula-line"><span class="formula-var">L<sub>WAFTeq,n</sub></span> <span class="formula-eq">=</span> L<sub>WAFmax,n</sub> + ΔL<sub>n</sub>&nbsp;&nbsp;<span class="formula-note">[dB(A)]</span></div>
+          </div>
+
+          <div style="margin-top:24px;padding:16px 20px;background:var(--light);border-left:3px solid var(--teal);border-radius:3px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--teal-dark);text-transform:uppercase;margin-bottom:8px;" data-i18n="p3.intl.label">Andere Länder / Regionen</div>
+            <p style="font-size:13px;color:var(--mid);line-height:1.65;margin:0;" data-i18n="p3.intl.text">In Ländern, in denen das Taktmaximalverfahren nicht angewendet wird, kann die Berechnung vereinfacht mit regulären Schallquellen erfolgen. Hierzu können in CadnaA Industrieschallquellen mit der entsprechenden Schallleistung angesetzt werden. Bei Bedarf ist zusätzlich ein Zuschlag für Impulshaltigkeit zu berücksichtigen.</p>
+          </div>
+
+          <p style="font-size:13px;color:var(--mid);margin-top:16px;" data-i18n-html="p3.link">Die vollständige methodische Herleitung inklusive Messkampagne und Validierung finden Sie im <a href="https://www.datakustik.com/fileadmin/user_upload/e-Learning-Center/Papers-and-Publications/DAGA26_Ballschlaggeraeusche.pdf" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;text-underline-offset:3px;">DAGA&nbsp;2026 Fachbeitrag (PDF)</a>.</p>
+
+          <div class="norm-badges">
+            <span class="norm-badge" data-i18n="tab3.badge1">⚖️ Gesetzliche Bestimmungen</span>
+            <span class="norm-badge">VDI 3770</span>
+            <span class="norm-badge">ISO 1996-1</span>
+          </div>
+        </div>
+        <div class="panel-visual">
+          <h4 data-i18n="p3.vis.h4">Implementierung</h4>
+          <ul class="checklist">
+            <li data-i18n="p3.li1">Implementierung in CadnaA: Tennisquellen-Objekt um Padel und Pickleball erweitert</li>
+            <li data-i18n="p3.li2">Automatisches Quellenranking pro Immissionsort</li>
+            <li data-i18n="p3.li3">Zeitanteilsberechnung und ΔL-Korrektur systemgestützt</li>
+            <li data-i18n="p3.li4">Raster- und Mehrpunktberechnungen effizient möglich</li>
+            <li data-i18n="p3.li5">Sonderfall Überdachung: CadnaR mit energetischem Teilchenmodell</li>
+          </ul>
+          <!-- Waveform detail SVG -->
+          <svg viewBox="0 0 260 110" style="width:100%;margin-top:20px;background:var(--dark);border-radius:3px;padding:12px;" xmlns="http://www.w3.org/2000/svg">
+            <text x="8" y="14" font-size="8" fill="rgba(255,255,255,0.4)" font-family="Arial">L_AFmax</text>
+            <polyline points="8,70 20,70 26,30 34,85 42,55 50,70 62,70 68,25 78,88 88,60 98,70 120,70 128,28 140,86 152,65 162,70 260,70"
+              stroke="#009898" stroke-width="1.5" fill="none"/>
+            <!-- 5s windows -->
+            <rect x="8" y="18" width="52" height="60" rx="2" fill="rgba(0,152,152,0.08)" stroke="#009898" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <rect x="62" y="18" width="52" height="60" rx="2" fill="rgba(0,152,152,0.08)" stroke="#009898" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <rect x="116" y="18" width="52" height="60" rx="2" fill="rgba(0,152,152,0.08)" stroke="#009898" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <text x="34" y="100" font-size="7" fill="rgba(255,255,255,0.3)" font-family="Arial" text-anchor="middle">5 s</text>
+            <text x="88" y="100" font-size="7" fill="rgba(255,255,255,0.3)" font-family="Arial" text-anchor="middle">5 s</text>
+            <text x="142" y="100" font-size="7" fill="rgba(255,255,255,0.3)" font-family="Arial" text-anchor="middle">5 s</text>
+            <!-- LAFT,5s steps -->
+            <polyline points="8,30 60,30 60,25 114,25 114,28 168,28" stroke="rgba(255,165,0,0.7)" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+            <text x="170" y="30" font-size="7" fill="rgba(255,165,0,0.7)" font-family="Arial">L_AFT,5s</text>
+          </svg>
+          <p style="font-size:11px;color:var(--mid);margin-top:8px;" data-i18n="p3.vis.note">Taktmaximalverfahren: Innerhalb jedes 5-s-Fensters bestimmt nur der höchste LAFmax-Wert den LAFT,5s.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ HOW IT WORKS ═══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label" data-i18n="steps.label">Erweiterung des Verfahrens</div>
+  <h2 data-i18n="steps.h2">Von der Messung zur Prognose</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4 data-i18n="step1.h4">Messung-Berechnung</h4>
+      <p data-i18n="step1.p">Vergleich von Messungen mit Berechnungen an realen Padel-Anlagen mit Einzel- und Mischbetrieb unter den für derartige Anlagen typischen Bedingungen.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4 data-i18n="step2.h4">Kennwert-Ableitung</h4>
+      <p data-i18n-html="step2.p">Abgleich von Messung und Prognose zur Bestimmung repräsentativer L<sub>WAFmax</sub>- und k<sub>sp</sub>-Werte für das Taktmaximalverfahren.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4 data-i18n="step3.h4">Software-Implementierung</h4>
+      <p data-i18n="step3.p">Systemgestützte Berechnung in CadnaA – für Einzel-, Raster- und Mehrpunktberechnungen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUOTE ══════════════════════════════════════════════ -->
+<div class="quote-band">
+  <div class="quote-inner">
+    <blockquote data-i18n="quote.text">Die Erweiterung des Taktmaximalverfahrens auf Padel schließt eine Regelungslücke – und schafft erstmals eine einheitliche Grundlage für Tennis, Pickleball und Padel in Einzel- und Kombibetrieb.</blockquote>
+    <div class="quote-source">ALFONS GELTINGER — DATAKUSTIK GMBH, DAGA 2026</div>
+  </div>
+</div>
+
+<!-- ══ LEAD FORM BAND ════════════════════════════════════════ -->
+<!--
+  Form-Backend: FormSubmit.co (kostenfrei, kein Account nötig).
+  EINMALIGE AKTIVIERUNG: Beim ersten Absenden erhält sales@datakustik.com
+  eine Verifikations-Mail von FormSubmit — einmal auf "Confirm" klicken,
+  danach laufen alle weiteren Einsendungen automatisch durch.
+  Alternative Backends (Austausch via action-Attribut): Basin, Web3Forms,
+  eigenes Backend. Wechsel später bei CRM-Einführung.
+-->
+<section class="lead-form-band" id="registrierung">
+  <div class="lead-form-inner">
+    <div class="lead-form-intro">
+      <span class="tag" data-i18n="form.tag">Registrierung</span>
+      <h2 data-i18n="form.h2">Padel-Lärmprognose — in CadnaA testen</h2>
+      <p data-i18n="form.lead">Ob Außenanlage mit Genehmigungserfordernis oder Halle mit Lärmproblem für Spieler und Besucher — wir melden uns mit einem fachlichen Einstieg passend zu Ihrer Herausforderung.</p>
+      <p style="font-size:13px;color:var(--mid);margin-top:16px;" data-i18n-html="form.privacy">Ihre Daten gehen direkt an <strong>sales@datakustik.com</strong>. Keine Weitergabe an Dritte. <a href="https://www.datakustik.com/de/datenschutz/" style="color:var(--teal);">Datenschutz</a>.</p>
+    </div>
+
+    <form class="lead-form" id="padelLeadForm"
+          action="contact.php"
+          method="POST">
+
+      <div class="status-msg success" id="formSuccess"><span id="formSuccessBase" data-i18n="form.success">Danke — Ihre Anfrage ist eingegangen. Wir melden uns in Kürze.</span><span id="webinarConfirm"></span></div>
+      <div class="status-msg error" id="formError" data-i18n="form.error">
+        Leider ist beim Senden ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder schreiben Sie direkt an sales@datakustik.com.
+      </div>
+
+      <!-- Kampagnen-Tagging (für Lead-Zuordnung) -->
+      <input type="hidden" name="campaign_source" value="padel_2026">
+      <input type="hidden" name="campaign_channel" id="fldChannel" value="direct">
+      <input type="hidden" name="landingpage" value="padel-laerm-landingpage.html">
+      <input type="hidden" name="referrer" id="fldReferrer" value="">
+
+      <!-- Honeypot gegen Spam (muss leer bleiben) -->
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="row two">
+        <div>
+          <label for="fName"><span data-i18n="form.fname">Vorname</span> <span class="req">*</span></label>
+          <input type="text" id="fName" name="Vorname" required autocomplete="given-name">
+        </div>
+        <div>
+          <label for="fLast"><span data-i18n="form.lname">Nachname</span> <span class="req">*</span></label>
+          <input type="text" id="fLast" name="Nachname" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="fEmail"><span data-i18n="form.email">E-Mail</span> <span class="req">*</span></label>
+        <input type="email" id="fEmail" name="Email" required autocomplete="email">
+      </div>
+
+      <div class="row two">
+        <div>
+          <label for="fCompany" data-i18n="form.company">Firma / Institution</label>
+          <input type="text" id="fCompany" name="Firma" autocomplete="organization">
+        </div>
+        <div>
+          <label for="fPhone" data-i18n="form.phone">Telefon (optional)</label>
+          <input type="tel" id="fPhone" name="Telefon" autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="fRole"><span data-i18n="form.role">Rolle / Perspektive</span> <span class="req">*</span></label>
+        <select id="fRole" name="Rolle" required>
+          <option value="">— bitte wählen —</option>
+          <option value="Gutachter / Ingenieur-Büro">Gutachter / Ingenieur-Büro</option>
+          <option value="Bauamt / Kommune">Bauamt / Kommune</option>
+          <option value="Sportanlagen-Hersteller">Sportanlagen-Hersteller</option>
+          <option value="Verein / Verband">Verein / Verband</option>
+          <option value="Betreiber / Investor">Betreiber / Investor</option>
+          <option value="Fachpresse">Fachpresse</option>
+          <option value="Bestandskunde">Bestandskunde</option>
+          <option value="Sonstiges">Sonstiges</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="fMessage" data-i18n="form.message">Ihr Anliegen / Projekt-Kontext</label>
+        <textarea id="fMessage" name="Anliegen" data-i18n-ph="form.message.ph" placeholder="z.B. konkretes Padel-Projekt, Frage zur Methodik, Wunsch nach Demo …"></textarea>
+      </div>
+
+      <!-- ── WEBINAR ANMELDUNG ──────────────────────────────── -->
+      <input type="hidden" name="Webinar" id="fWebinar" value="Nein">
+      <div class="webinar-card" id="webinarCard" role="checkbox" aria-checked="false" tabindex="0">
+        <div class="webinar-check" id="webinarCheck">
+          <svg width="13" height="10" viewBox="0 0 13 10" fill="none">
+            <path d="M1 5L5 9L12 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="webinar-info">
+          <div class="webinar-label" data-i18n="form.webinar.label">📅 Kostenloses Webinar — Jetzt anmelden</div>
+          <div class="webinar-title" data-i18n="form.webinar.title">Padel Court Bau – die wichtigsten Lärmschutz-Basics</div>
+          <div class="webinar-times">
+            <div class="webinar-time-slot">🗓 <strong>24. Juni 2026</strong></div>
+            <div class="webinar-time-slot">🇩🇪 <strong>16:00</strong> CEST</div>
+            <div class="webinar-time-slot">🇺🇸 <strong>10:00</strong> EDT &nbsp;|&nbsp; <strong>07:00</strong> PDT</div>
+            <div class="webinar-time-slot">🌏 <strong>23:00</strong> JST</div>
+          </div>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="fConsent" required>
+        <span data-i18n-html="form.consent">Ich stimme zu, dass DataKustik meine Angaben zur Bearbeitung meiner Anfrage verarbeitet. Informationen zum Widerruf: <a href="https://www.datakustik.com/de/datenschutz/">Datenschutzerklärung</a>.</span>
+      </label>
+
+      <button type="submit" id="formSubmit" data-i18n="form.submit">Registrierung absenden</button>
+      <div class="note" data-i18n-html="form.note">Pflichtfelder mit <span style="color:var(--teal);">*</span>.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ════════════════════════════════════════════ -->
+<div class="cta-band">
+  <h2 data-i18n="cta.h2">Jetzt in CadnaA anwenden</h2>
+  <p data-i18n="cta.p">Padel- und Pickleball-Emissionen sind in CadnaA implementiert und sofort einsatzbereit.</p>
+  <a href="#registrierung" class="btn-white-ghost" data-i18n="cta.btn">Experten kontaktieren</a>
+</div>
+
+<!-- ══ NEWSLETTER BAND (Soft-Conversion) ═══════════════════ -->
+<div class="newsletter-band">
+  <h3 data-i18n="newsletter.h3">Noch nicht bereit für ein Gespräch?</h3>
+  <p data-i18n="newsletter.p">Bleiben Sie informiert: Updates zu CadnaA, Lärmschutz-Methodik, Webinaren und Forschung im DataKustik-Newsletter.</p>
+  <a href="https://account.datakustik.com/de/newsletter/subscribe?utm_source=padel_lp&utm_medium=cta&utm_campaign=newsletter_padel_2026"
+     class="btn-teal-ghost"
+     id="newsletterCtaMain"
+     data-cta="newsletter"
+     data-cta-position="post_form"
+     target="_blank"
+     rel="noopener"
+     data-i18n="newsletter.btn">Newsletter abonnieren</a>
+</div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <!-- DataKustik Footer-Logo: 1:1 Nav-SVG-Struktur, nur Farben angepasst (verifiziert ausgerichtet) -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="26" aria-label="DataKustik" role="img" style="display:block;vertical-align:middle;" viewBox="-4806 -8545 170 41.321">
+      <defs>
+        <style>
+          .ftrlogo-i { fill: #009898; fill-rule: evenodd; }
+          .ftrlogo-t { fill: rgba(255,255,255,0.55); }
+        </style>
+      </defs>
+      <g transform="translate(-5347 -8695)">
+        <g transform="translate(541 150)">
+          <path class="ftrlogo-i" d="M.729,0H0V.681H.729a19.98,19.98,0,0,1,0,39.96H0v.681H.729A20.661,20.661,0,0,0,.729,0Z" transform="translate(0)"/>
+          <path class="ftrlogo-i" d="M17.841,24.309A17.241,17.241,0,0,0,.632,7.1H0V8.461H.583a15.848,15.848,0,1,1,0,31.7H0v1.361H.632A17.21,17.21,0,0,0,17.841,24.309Z" transform="translate(0 -3.648)"/>
+          <path class="ftrlogo-i" d="M13.612,28.677A13.122,13.122,0,0,0,.486,15.6H0v2.042H.438a11.035,11.035,0,1,1,0,22.07H0V41.8H.486A13.2,13.2,0,0,0,13.612,28.677Z" transform="translate(0 -8.016)"/>
+          <path class="ftrlogo-i" d="M8.6,33.764A8.288,8.288,0,0,0,.34,25.5H0V41.98H.34A8.216,8.216,0,0,0,8.6,33.764Z" transform="translate(0 -13.104)"/>
+        </g>
+        <g transform="translate(570.605 157.875)">
+          <path class="ftrlogo-t" d="M66.2,19.7c.632,0,1.264.049,1.945.049,3.889.194,5.736,1.313,7.1,2.528a8.984,8.984,0,0,1,2.333,3.5,11.247,11.247,0,0,1,.632,4.035,12.446,12.446,0,0,1-.292,3.014,9.3,9.3,0,0,1-3.4,5.542c-2.625,1.945-5.688,1.993-8.8,1.993H60.9V19.7ZM65.129,37.2c.681,0,1.458,0,2.188-.049a6.474,6.474,0,0,0,5.445-2.917,7.784,7.784,0,0,0,1.118-4.229A6.919,6.919,0,0,0,71.3,24.27c-1.75-1.361-4.084-1.458-6.222-1.41Z" transform="translate(-60.9 -17.999)"/>
+          <path class="ftrlogo-t" d="M108.857,45.653V43.417a3.3,3.3,0,0,1-.438.681A5.713,5.713,0,0,1,104,45.945c-.632,0-3.354-.1-4.715-2.285A4.376,4.376,0,0,1,98.6,41.23a4.639,4.639,0,0,1,.778-2.528c1.507-2.236,4.667-2.528,7.049-2.528.778,0,1.507.049,2.285.049a8.038,8.038,0,0,0-.243-1.653,3,3,0,0,0-3.111-1.75,8.627,8.627,0,0,0-3.986,1.069,4.492,4.492,0,0,0-.778.583l-.1-3.452A14.016,14.016,0,0,1,105.746,30a9.642,9.642,0,0,1,2.285.243,4.969,4.969,0,0,1,3.938,3.111A11.247,11.247,0,0,1,112.358,37v3.646c0,1.507.049,2.965.1,4.472,0,.194.049.34.049.535Zm-5.1-6.271a2.613,2.613,0,0,0-.826.875,1.83,1.83,0,0,0-.243.972,2.555,2.555,0,0,0,.194.826,2.437,2.437,0,0,0,2.188,1.215,3.582,3.582,0,0,0,2.82-1.458,5.391,5.391,0,0,0,.875-3.111C107.3,38.653,105.114,38.556,103.753,39.382Z" transform="translate(-80.273 -23.291)"/>
+          <path class="ftrlogo-t" d="M136.057,26.127h3.6v2.965h-3.6v6.514c.049.632-.049,2.771,2.333,2.771a5.767,5.767,0,0,0,1.458-.243l.1,3.111a9.529,9.529,0,0,1-2.625.389,5.781,5.781,0,0,1-3.792-1.313c-1.361-1.361-1.313-3.695-1.264-5.445V29.043H129.3V26.078h2.965V23.015l3.84-1.215v4.327Z" transform="translate(-96.049 -19.078)"/>
+          <path class="ftrlogo-t" d="M163.457,45.653V43.417a3.3,3.3,0,0,1-.437.681,5.713,5.713,0,0,1-4.424,1.847c-.632,0-3.354-.1-4.715-2.285a4.376,4.376,0,0,1-.681-2.431,4.639,4.639,0,0,1,.778-2.528c1.507-2.236,4.667-2.528,7.049-2.528.778,0,1.507.049,2.285.049a8.038,8.038,0,0,0-.243-1.653,3,3,0,0,0-3.111-1.75,8.628,8.628,0,0,0-3.986,1.069,4.494,4.494,0,0,0-.778.583l-.1-3.452A14.016,14.016,0,0,1,160.346,30a9.642,9.642,0,0,1,2.285.243,4.969,4.969,0,0,1,3.938,3.111A11.247,11.247,0,0,1,166.958,37v3.646c0,1.507.049,2.965.1,4.472,0,.194.049.34.049.535Zm-5.1-6.271a2.614,2.614,0,0,0-.826.875,1.83,1.83,0,0,0-.243.972,2.556,2.556,0,0,0,.194.826,2.437,2.437,0,0,0,2.188,1.215,3.582,3.582,0,0,0,2.82-1.458,5.391,5.391,0,0,0,.875-3.111C161.9,38.653,159.666,38.556,158.353,39.382Z" transform="translate(-108.33 -23.291)"/>
+          <path class="ftrlogo-t" d="M191.681,28.645l.875-1.118c.486-.535.924-1.069,1.361-1.653l5.25-6.125h5.1l-6.417,7.195-2.09,2.333,8.993,11.132h-5.493l-5.785-7.438c-.438-.535-.826-1.069-1.215-1.6l-.632-.875v9.917H187.5V19.7h4.132v8.945Z" transform="translate(-125.956 -17.999)"/>
+          <path class="ftrlogo-t" d="M226.186,30.7v7.778c.049,1.41-.049,3.257,1.361,4.181a2.728,2.728,0,0,0,1.6.438,3,3,0,0,0,2.674-1.458,7.85,7.85,0,0,0,.778-4.181V30.7h3.938V40.86l.194,5.2h-3.695l-.1-2.382a5.287,5.287,0,0,1-1.41,1.556,6.11,6.11,0,0,1-3.792,1.118,5.037,5.037,0,0,1-4.472-2.139c-1.069-1.6-1.069-3.452-1.069-5.25V30.7Z" transform="translate(-143.787 -23.651)"/>
+          <path class="ftrlogo-t" d="M265.763,33.649a10.649,10.649,0,0,0-3.208-.583,4.427,4.427,0,0,0-1.993.389,1.391,1.391,0,0,0-.826,1.215c0,.681.535.972,1.118,1.215,1.118.486,2.333.681,3.4,1.215a4.225,4.225,0,0,1,2.431,3.986,4.388,4.388,0,0,1-1.556,3.452A6.957,6.957,0,0,1,260.464,46a16.462,16.462,0,0,1-4.57-.681l.194-3.354a9.517,9.517,0,0,0,3.889.972c1.75,0,2.674-.778,2.674-1.653a1.585,1.585,0,0,0-1.069-1.313c-1.07-.486-2.188-.729-3.208-1.215a4.227,4.227,0,0,1-2.674-3.938,4.375,4.375,0,0,1,.583-2.188c.729-1.167,2.431-2.528,5.639-2.528a16.182,16.182,0,0,1,4.035.583Z" transform="translate(-161.002 -23.343)"/>
+          <path class="ftrlogo-t" d="M286.806,26.127h3.6v2.965h-3.6v6.514c.049.632-.049,2.771,2.333,2.771a5.768,5.768,0,0,0,1.458-.243l.1,3.111a9.529,9.529,0,0,1-2.625.389,5.781,5.781,0,0,1-3.792-1.313c-1.361-1.361-1.313-3.695-1.313-5.445V29.043H280V26.078h2.965V23.015l3.84-1.215Z" transform="translate(-173.489 -19.078)"/>
+          <path class="ftrlogo-t" d="M310.286,17.3v3.695H306.3V17.3Zm0,6.514V39.176H306.3V23.814Z" transform="translate(-187.003 -16.765)"/>
+          <path class="ftrlogo-t" d="M324.538,29.471c.486-.632.924-1.264,1.41-1.9l3.452-4.327h4.618l-5.688,6.757,6.417,8.556h-4.91l-3.4-4.667c-.243-.34-.486-.681-.681-1.022l-.437-.728v7.632H320.6V16.2h3.938Z" transform="translate(-194.352 -16.2)"/>
+        </g>
+      </g>
+    </svg>
+    <div class="footer-links">
+      <a href="https://www.datakustik.com/de/impressum/" data-i18n="footer.imprint">Impressum</a>
+      <a href="https://www.datakustik.com/de/datenschutz/" data-i18n="footer.privacy">Datenschutz</a>
+      <a href="https://account.datakustik.com/de/newsletter/subscribe?utm_source=padel_lp&utm_medium=cta&utm_campaign=newsletter_padel_2026"
+         id="newsletterCtaFooter"
+         data-cta="newsletter"
+         data-cta-position="footer"
+         target="_blank"
+         rel="noopener"
+         data-i18n="footer.newsletter">Newsletter</a>
+    </div>
+    <div class="footer-copy" data-i18n="footer.copy">© 2026 DataKustik GmbH, Gilching</div>
+  </div>
+</footer>
+
+
+<script src="translations.js"></script>
+<script src="padel-laerm.js"></script>
+</body>
+</html>
