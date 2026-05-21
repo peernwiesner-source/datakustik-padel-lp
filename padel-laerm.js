@@ -51,6 +51,8 @@
   }
 
   // Standard-Parameter, die JEDES Event begleiten (Custom Dimensions in GA4)
+  // `environment` wird zusätzlich als Event-Param mitgeschickt, damit auch event-scoped
+  // Reports/Filter sauber zwischen Staging und Production trennen können.
   function baseParams(extra) {
     var p = {
       campaign_source:  UTM.source,
@@ -59,7 +61,8 @@
       campaign_content: UTM.content,
       campaign_term:    UTM.term,
       target_group:     resolveTargetGroup(),
-      language:         currentLang
+      language:         currentLang,
+      environment:      window.DK_ENV || 'production'
     };
     if (extra) for (var k in extra) p[k] = extra[k];
     return p;
