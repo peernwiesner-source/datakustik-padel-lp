@@ -1,6 +1,6 @@
 /**
  * padel-laerm.js – DataKustik Padel Landingpage
- * Tab-Navigation + Kontaktformular (AJAX → contact.php) + i18n (DE/EN/FR/ES/ZH/IT)
+ * Tab-Navigation + Kontaktformular (AJAX → Google Apps Script) + i18n (DE/EN/FR/ES/ZH/IT)
  * + GA4 Event Tracking v2.0 (Measurement ID G-Y5GTQNCL71, Stream-ID 5001292825)
  *
  * Tracking-Schema: siehe Marketing/Marketing Strategy/202605_GA4_KPI_Tracking/202605_GA4_Event-Schema.xlsx
@@ -485,7 +485,8 @@
     btn.disabled    = true;
     btn.textContent = t['form.sending'] || 'Wird gesendet…';
 
-    var data = new FormData(form);
+    // URLSearchParams statt FormData → kompatibel mit Apps Script doPost (e.parameter)
+    var data = new URLSearchParams(new FormData(form));
     var webinarSelected = wCard && wCard.classList.contains('selected');
 
     fetch(form.action, {

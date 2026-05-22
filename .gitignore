@@ -1,29 +1,28 @@
-# OS
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-.~lock.*
 
 # Backup-Ordner aus dem Master-Workflow
-_backup_pre_*
-_backup_post_*
-backup/
-
-# Lokale Editor-Konfiguration
-.vscode/
-.idea/
-
+# Build-Artefakte (falls später ein Build-Step dazukommt)
 # FTP-/Sync-Credentials
+# Logs
+# Lokale Editor-Konfiguration
+# OS
+*.log
+*.netrc
+*.swo
+*.swp
+*.zip
+.DS_Store
 .env
 .env.*
-*.netrc
-ftp-credentials.txt
-
-# Build-Artefakte (falls später ein Build-Step dazukommt)
+.htaccess
+.idea/
+.vscode/
+.~lock.*
+Thumbs.db
+_backup_post_*
+_backup_pre_*
+backup/
+contact.php
 dist-old/
+ftp-credentials.txt
 node_modules/
-
-# Logs
-*.log
 sync-*.log
